@@ -11,7 +11,7 @@ export const routes: Routes = [
   {
     path: 'private',
     component: Private,
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     children: [
       {
         path: 'dashboard',
