@@ -27,7 +27,9 @@ export class Login {
     private fb: FormBuilder,
     private _userService: UserService,
     private _storageService: StorageService
-  ) {}
+  ) {
+    console.log('Login component initialized');
+  }
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -46,10 +48,6 @@ export class Login {
       next: (response) => {
         console.log('Login successful:', response);
         this._storageService.setLoggedUser(response);
-        // Here you would typically store the user data and token in a service or local storage
-        // For example:
-        // this.storageService.setLoggedUser(response);
-        // this.router.navigate(['/dashboard']);
       },
       error: (error) => {
         console.error('Login failed:', error);

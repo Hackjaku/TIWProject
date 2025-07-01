@@ -17,10 +17,6 @@ export const routes: Routes = [
         path: 'dashboard',
         loadComponent: () => import('./private/dashboard/dashboard').then(m => m.Dashboard)
       },
-      // {
-      //   path: 'settings',
-      //   loadComponent: () => import('./private/settings.component').then(m => m.SettingsComponent)
-      // },
       {
         path: '',
         pathMatch: 'full',

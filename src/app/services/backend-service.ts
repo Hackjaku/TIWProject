@@ -8,7 +8,7 @@ import { catchError, Observable, throwError } from 'rxjs';
 })
 export class BackendService {
 
-  private readonly baseUrl = 'http://localhost:8091/api/v1/'; // or environment.apiUrl
+  private readonly baseUrl = 'http://localhost:8091/api/v1'; // or environment.apiUrl
 
   constructor(
     private httpClient: HttpClient,
