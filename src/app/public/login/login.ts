@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { Route } from '@angular/router';
+import { Route, Router } from '@angular/router';
 import { UserService } from '../../services/user-service';
 import { StorageService } from '../../services/storage-service';
 
@@ -26,7 +26,8 @@ export class Login {
   constructor(
     private fb: FormBuilder,
     private _userService: UserService,
-    private _storageService: StorageService
+    private _storageService: StorageService,
+    private _router: Router
   ) {
     console.log('Login component initialized');
   }
@@ -48,6 +49,7 @@ export class Login {
       next: (response) => {
         console.log('Login successful:', response);
         this._storageService.setLoggedUser(response);
+        this._router.navigate(['/private/dashboard']); // Redirect to dashboard after successful login
       },
       error: (error) => {
         console.error('Login failed:', error);

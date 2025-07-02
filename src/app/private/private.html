@@ -2,6 +2,9 @@
       <nav class="sidebar">
         <a routerLink="dashboard" routerLinkActive="active">Dashboard</a>
         <!-- Add more links -->
+
+        <div class="spacer"></div>
+        <button (click)="logout()" class="logout-button">Logout</button>
       </nav>
       <main class="content">
         <router-outlet></router-outlet>
