@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BackendService } from './backend-service';
-import { LoginRequest, LoginResponse } from '../interfaces/User';
+import { LoginRequest, LoginResponse, UserDTO } from '../interfaces/User';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -18,5 +18,10 @@ export class UserService {
       Password: password
     };
     return this.backendService.post('User/login', loginRequest);
+  }
+
+  searchUser(username: string): Observable<UserDTO[]> {
+    // it's a get with a query parameter
+    return this.backendService.get(`User/search?username=${username}`);
   }
 }

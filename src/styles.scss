@@ -7,3 +7,15 @@ body {
   margin: 0;
   font-family: Roboto, sans-serif;
 }
+
+mat-dialog-content {
+  padding: 24px; /* or whatever feels right: 16px, 20px, etc */
+  overflow: visible; /* keep input outlines from clipping */
+}
+
+
+::ng-deep .mat-dialog-container {
+  padding: 24px;
+  box-sizing: border-box; /* important to prevent padding from breaking width */
+  border-radius: 8px; /* keep rounded corners */
+}

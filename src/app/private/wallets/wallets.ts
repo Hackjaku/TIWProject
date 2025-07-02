@@ -1,7 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { WalletDTO } from '../../interfaces/Wallet';
 import { WalletService } from '../../services/wallet-service';
+import { SendDialog } from '../dialogs/send-dialog/send-dialog';
 
 @Component({
   selector: 'app-wallets',
@@ -14,7 +16,8 @@ export class Wallets implements OnInit {
   loading = true;
 
   constructor(
-    private _walletService: WalletService
+    private _walletService: WalletService,
+    private _dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -32,7 +35,18 @@ export class Wallets implements OnInit {
 
   send(wallet: WalletDTO): void {
     // Implement send functionality here
-    console.log(`Sending from wallet: ${wallet.WalletId}`);
+    const dialogRef = this._dialog.open(SendDialog, {
+      width: '400px',
+      height: '300px',
+      data: { wallet } // what i'm sending to the modal
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // Handle the result from the modal if needed
+        console.log('Send action completed:', result);
+      }
+    });
   }
 
 }

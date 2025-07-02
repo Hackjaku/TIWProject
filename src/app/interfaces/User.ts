@@ -11,3 +11,11 @@ export interface LoginResponse {
   Token: string,
   Email: number
 }
+
+export interface UserDTO {
+  UserId: number,
+  Username: string,
+  FirstName: string,
+  LastName: string,
+  Email: string,
+}
