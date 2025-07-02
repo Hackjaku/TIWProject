@@ -1,1 +1,16 @@
-<p>wallets works!</p>
+<h3>My Wallets</h3>
+
+<div *ngIf="loading">Loading wallets...</div>
+
+<div *ngIf="!loading && wallets.length === 0">
+  No wallets found.
+</div>
+
+<div *ngIf="!loading && wallets.length > 0" class="wallets-container">
+  <div class="wallet-card" *ngFor="let wallet of wallets">
+    <h4>{{ wallet.CurrencyName }} ({{ wallet.CurrencySymbol }})</h4>
+    <p><strong>Available:</strong> {{ wallet.AvailableBalance }}</p>
+    <p><strong>Frozen:</strong> {{ wallet.FrozenBalance }}</p>
+    <button (click)="send(wallet)">Send</button>
+  </div>
+</div>

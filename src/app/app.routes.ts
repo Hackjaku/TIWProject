@@ -20,6 +20,10 @@ export const routes: Routes = [
         loadComponent: () => import('./private/dashboard/dashboard').then(m => m.Dashboard)
       },
       {
+        path: 'wallets',
+        loadComponent: () => import('./private/wallets/wallets').then(m => m.Wallets)
+      },
+      {
         path: '',
         pathMatch: 'full',
         redirectTo: 'dashboard'
