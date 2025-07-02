@@ -1,1 +1,24 @@
-<p>dashboard-list works!</p>
+<h3>My NFTs</h3>
+
+<div *ngIf="loading">Loading NFTs...</div>
+
+<table *ngIf="!loading && nfts.length > 0" class="nft-table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Image</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let nft of nfts">
+      <td>{{ nft.Name }}</td>
+      <td>
+        <img [src]="nft.Link" alt="{{ nft.Name }}" width="80" />
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<div *ngIf="!loading && nfts.length === 0">
+  You don't own any NFTs yet.
+</div>
