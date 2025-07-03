@@ -1,5 +1,6 @@
-<div class="add-button" *ngIf="owned">
+<div class="add-button" *ngIf="canAddCurrency()">
   <button mat-raised-button color="primary" (click)="addCurrency()">
     <mat-icon>add</mat-icon>
+    Add
   </button>
 </div>

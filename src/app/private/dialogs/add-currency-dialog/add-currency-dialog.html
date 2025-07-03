@@ -1,0 +1,19 @@
+<div class="container">
+  <form [formGroup]="form" class="send-form">
+
+    <mat-form-field appearance="fill" class="full-width">
+      <input matInput type="number" formControlName="Amount" placeholder="Amount" min="0" step="any"
+        aria-label="Market Cap" />
+      <mat-error *ngIf="form.controls['Amount'].hasError('min')">
+        Amount must be positive
+      </mat-error>
+      <mat-error *ngIf="form.controls['Amount'].hasError('required')">
+        Amount is required
+      </mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" [disabled]="form.invalid" (click)="confirmAdd()" class="confirm-button">
+      Confirm Add
+    </button>
+  </form>
+</div>
