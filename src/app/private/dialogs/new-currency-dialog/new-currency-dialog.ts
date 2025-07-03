@@ -6,6 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { CurrencyService } from '../../../services/currency-service';
 import { CreateCurrencyDTO } from '../../../interfaces/Currency';
 import { MatDialogRef } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-new-currency-dialog',
@@ -13,7 +14,8 @@ import { MatDialogRef } from '@angular/material/dialog';
     CommonModule,
     ReactiveFormsModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatButtonModule
   ],
   templateUrl: './new-currency-dialog.html',
   styleUrl: './new-currency-dialog.scss'

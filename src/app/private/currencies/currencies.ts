@@ -9,11 +9,12 @@ import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { NewCurrencyDialog } from '../dialogs/new-currency-dialog/new-currency-dialog';
+import { CurrencyActions } from './currency-actions/currency-actions';
 
 
 @Component({
   selector: 'app-currencies',
-  imports: [CommonModule, MatTableModule, MatIconModule, MatButtonModule],
+  imports: [CommonModule, MatTableModule, MatIconModule, MatButtonModule, CurrencyActions],
   templateUrl: './currencies.html',
   styleUrl: './currencies.scss'
 })

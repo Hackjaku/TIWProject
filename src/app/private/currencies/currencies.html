@@ -38,11 +38,13 @@
 
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef> Actions </th>
-      <td mat-cell *matCellDef="let animal"> ACTIONS COMPONENT </td>
+      <td mat-cell *matCellDef="let currency">
+        <app-currency-actions [currency]="currency" [userId]="this.currentUserId"></app-currency-actions>
+      </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" class="header"></tr>
-    <tr mat-row *matRowDef="let animal; columns: displayedColumns;" class="currency-row"></tr>
+    <tr mat-row *matRowDef="let currency; columns: displayedColumns;" class="currency-row"></tr>
   </table>
 
 </div>
