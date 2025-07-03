@@ -28,6 +28,10 @@ export const routes: Routes = [
         loadComponent: () => import('./private/currencies/currencies').then(m => m.Currencies)
       },
       {
+        path: 'nfts',
+        loadComponent: () => import('./private/nfts/nfts').then(m => m.Nfts)
+      },
+      {
         path: '',
         pathMatch: 'full',
         redirectTo: 'dashboard'

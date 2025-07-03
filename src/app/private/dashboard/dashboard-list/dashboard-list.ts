@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NFT } from '../../../interfaces/NFT';
+import { Nft, NftDTO } from '../../../interfaces/Nft';
 import { NftService } from '../../../services/nft-service';
 import { CommonModule } from '@angular/common';
 
@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
 })
 export class DashboardList implements OnInit {
 
-  nfts: NFT[] = [];
+  nfts: NftDTO[] = [];
   loading: boolean = true;
 
   constructor(
@@ -20,7 +20,7 @@ export class DashboardList implements OnInit {
 
   ngOnInit(): void {
     this._nftService.getPersonalNFTs().subscribe({
-      next: (data: NFT[]) => {
+      next: (data: NftDTO[]) => {
         this.nfts = data;
         this.loading = false;
       },

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BackendService } from './backend-service';
 import { Observable } from 'rxjs';
-import { NFT } from '../interfaces/NFT';
+import { Nft, NftDTO } from '../interfaces/Nft';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ export class NftService {
     private _backendService: BackendService
   ) { }
 
-  getPersonalNFTs(): Observable<NFT[]> {
-    return this._backendService.get('NFT/Personal');
+  getPersonalNFTs(): Observable<NftDTO[]> {
+    return this._backendService.get('Nft/Personal');
   }
 }

@@ -1,0 +1,51 @@
+<div class="actions-header">
+  <h3>NFTs</h3>
+  <button mat-raised-button color="primary" (click)="newNFTDialog()">
+    <mat-icon>add</mat-icon>
+    Create NFT
+  </button>
+</div>
+
+<div *ngIf="loading">Loading NFTs...</div>
+
+<div *ngIf="!loading && nfts.length === 0">
+  No NFTs found.
+</div>
+
+<div *ngIf="!loading && nfts.length > 0" class="nfts-container">
+  <table mat-table [dataSource]="nfts" multiTemplateDataRows class="mat-elevation-z8">
+    <!-- Position Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let nft" class="name-column"> {{ nft.Name }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="creator">
+      <th mat-header-cell *matHeaderCellDef class="creator-column"> Creator </th>
+      <td mat-cell *matCellDef="let nft" class="creator-column"> {{ nft.CreatorName }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="creation_date">
+      <th mat-header-cell *matHeaderCellDef class="date-column"> Creation Date </th>
+      <td mat-cell *matCellDef="let nft" class="date-column"> {{ nft.CreatedAt | date: 'short' }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="link">
+      <th mat-header-cell *matHeaderCellDef class="link-column"> Link </th>
+      <td mat-cell *matCellDef="let nft" class="link-column">
+        <a [href]="nft.Link" target="_blank" [title]="nft.Link"> {{ truncateLink(nft.Link) }} </a>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let nft">
+        <app-nft-actions></app-nft-actions>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" class="header"></tr>
+    <tr mat-row *matRowDef="let nft; columns: displayedColumns;" class="nft-row"></tr>
+  </table>
+
+</div>
