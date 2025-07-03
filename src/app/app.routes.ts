@@ -24,6 +24,10 @@ export const routes: Routes = [
         loadComponent: () => import('./private/wallets/wallets').then(m => m.Wallets)
       },
       {
+        path: 'currencies',
+        loadComponent: () => import('./private/currencies/currencies').then(m => m.Currencies)
+      },
+      {
         path: '',
         pathMatch: 'full',
         redirectTo: 'dashboard'
