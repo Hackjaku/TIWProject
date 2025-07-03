@@ -94,6 +94,7 @@ export class SendDialog implements OnInit {
       },
       error: (err) => {
         console.error('Transfer failed', err);
+        this.dialogRef.close(); // Close the dialog on error
       }
     });
   }

@@ -1,0 +1,43 @@
+<div class="container">
+  <form [formGroup]="form" class="send-form">
+    <mat-form-field appearance="fill" class="full-width">
+      <input type="text" formControlName="Symbol" matInput placeholder="Currency Symbol" aria-label="Currency Symbol" />
+      <mat-error *ngIf="form.controls['Symbol'].hasError('required')">
+        Symbol is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <input type="text" formControlName="Name" matInput placeholder="Currency Name" aria-label="Currency Name" />
+      <mat-error *ngIf="form.controls['Name'].hasError('required')">
+        Name is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <input matInput type="number" formControlName="MarketCap" placeholder="Market Cap" min="0" step="any"
+        aria-label="Market Cap" />
+      <mat-error *ngIf="form.controls['MarketCap'].hasError('min')">
+        Amount must be positive
+      </mat-error>
+      <mat-error *ngIf="form.controls['MarketCap'].hasError('required')">
+        Amount is required
+      </mat-error>
+    </mat-form-field>
+
+        <mat-form-field appearance="fill" class="full-width">
+      <input matInput type="number" formControlName="GeneratedBalance" placeholder="Initial Value" min="0" step="any"
+        aria-label="Initial Value" />
+      <mat-error *ngIf="form.controls['GeneratedBalance'].hasError('min')">
+        Amount must be positive
+      </mat-error>
+      <mat-error *ngIf="form.controls['GeneratedBalance'].hasError('required')">
+        Amount is required
+      </mat-error>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" [disabled]="form.invalid" (click)="confirmCreate()" class="confirm-button">
+      Confirm Send
+    </button>
+  </form>
+</div>

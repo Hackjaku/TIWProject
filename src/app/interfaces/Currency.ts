@@ -1,7 +1,7 @@
 export interface CreateCurrencyDTO {
   Symbol: string;
   Name: string;
-  MarketCap: number;
+  MarketCap: number | null;
   GeneratedBalance: number
 }
 
@@ -15,6 +15,6 @@ export interface Currency {
   Symbol: string;
   Name: string;
   OwnerId: number;
-  MarketCap: number;
+  MarketCap: number | null;
   GeneratedBalance: number
 }

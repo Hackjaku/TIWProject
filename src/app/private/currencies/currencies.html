@@ -1,1 +1,48 @@
-<p>currencies works!</p>
+<div class="actions-header">
+  <h3>Currencies</h3>
+  <button mat-raised-button color="primary" (click)="newCurrencyDialog()">
+    <mat-icon>add</mat-icon>
+    Add Currency
+  </button>
+</div>
+
+<div *ngIf="loading">Loading currencies...</div>
+
+<div *ngIf="!loading && currencies.length === 0">
+  No currencies found.
+</div>
+
+<div *ngIf="!loading && currencies.length > 0" class="currencies-container">
+  <table mat-table [dataSource]="currencies" multiTemplateDataRows class="mat-elevation-z8">
+    <!-- Position Column -->
+    <ng-container matColumnDef="symbol">
+      <th mat-header-cell *matHeaderCellDef> Symbol </th>
+      <td mat-cell *matCellDef="let currency" [ngClass]="this.getOwnedClass(currency)" class="symbol-column"> {{
+        currency.Symbol }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef class="name-column"> Name </th>
+      <td mat-cell *matCellDef="let currency" class="name-column"> {{ currency.Name }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="market_cap">
+      <th mat-header-cell *matHeaderCellDef class="cap-column"> Market Cap </th>
+      <td mat-cell *matCellDef="let currency" class="cap-column"> {{ currency.MarketCap }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="generated_balance">
+      <th mat-header-cell *matHeaderCellDef class="balance-column"> Balance </th>
+      <td mat-cell *matCellDef="let currency" class="balance-column"> {{ currency.GeneratedBalance }} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let animal"> ACTIONS COMPONENT </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" class="header"></tr>
+    <tr mat-row *matRowDef="let animal; columns: displayedColumns;" class="currency-row"></tr>
+  </table>
+
+</div>

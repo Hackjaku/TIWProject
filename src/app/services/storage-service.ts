@@ -30,4 +30,9 @@ export class StorageService {
     return user ? user.Token : null;
   }
 
+  getUserId(): number | null {
+    const user = this.getLoggedUser;
+    return user ? user.UserId : null;
+  }
+
 }
