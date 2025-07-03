@@ -1,3 +1,13 @@
+:host {
+  display: flex;
+  flex: 1;
+}
+.container {
+  height: 100%;
+  width: 100%;
+  padding: 20px;
+}
+
 .send-form {
   display: flex;
   flex-direction: column;
@@ -23,6 +33,3 @@
   }
 }
 
-:host {
-  padding: 30px;
-}

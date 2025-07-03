@@ -22,6 +22,9 @@ export class UserService {
 
   searchUser(username: string): Observable<UserDTO[]> {
     // it's a get with a query parameter
+    if (username.length < 4) {
+      throw new Error("too few characters");
+    }
     return this.backendService.get(`User/search?username=${username}`);
   }
 }

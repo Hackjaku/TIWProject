@@ -13,7 +13,7 @@ export interface LoginResponse {
 }
 
 export interface UserDTO {
-  UserId: number,
+  Id: number,
   Username: string,
   FirstName: string,
   LastName: string,

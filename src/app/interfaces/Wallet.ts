@@ -11,3 +11,10 @@ export interface WalletPieChartData {
   Currency: string;
   Balance: number;
 }
+
+export interface TransferCurrencyDTO {
+  CurrencyId: string;
+  WalletId: string;
+  Amount: number;
+  OwnerId: number;
+}

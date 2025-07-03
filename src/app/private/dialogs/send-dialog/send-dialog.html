@@ -1,32 +1,34 @@
-<form [formGroup]="form" class="send-form">
-  <mat-form-field appearance="fill" class="full-width">
-    <input type="text" formControlName="Username" matInput [matAutocomplete]="auto" placeholder="Recipient username"
-      aria-label="Recipient username" />
-    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onOptionSelected($event.option.value)">
-      <mat-option *ngFor="let user of filteredUsers$ | async" [value]="user.Username">
-        {{ user.Username }}
-      </mat-option>
-    </mat-autocomplete>
-    <mat-error *ngIf="form.controls['Username'].hasError('required')">
-      Username is required
-    </mat-error>
-  </mat-form-field>
+<div class="container">
+  <form [formGroup]="form" class="send-form">
+    <mat-form-field appearance="fill" class="full-width">
+      <input type="text" formControlName="Username" matInput [matAutocomplete]="auto" placeholder="Recipient username"
+        aria-label="Recipient username" />
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onOptionSelected($event.option.value)">
+        <mat-option *ngFor="let user of filteredUsers$ | async" [value]="user">
+          {{ user.Username }}
+        </mat-option>
+      </mat-autocomplete>
+      <mat-error *ngIf="form.controls['Username'].hasError('required')">
+        Username is required
+      </mat-error>
+    </mat-form-field>
 
-  <mat-form-field appearance="fill" class="full-width">
-    <input matInput type="number" formControlName="Amount" placeholder="Amount to send" min="0" step="any"
-      aria-label="Amount to send" />
-    <mat-error *ngIf="form.controls['Amount'].hasError('exceededBalance')">
-      Amount exceeds available balance
-    </mat-error>
-    <mat-error *ngIf="form.controls['Amount'].hasError('min')">
-      Amount must be positive
-    </mat-error>
-    <mat-error *ngIf="form.controls['Amount'].hasError('required')">
-      Amount is required
-    </mat-error>
-  </mat-form-field>
+    <mat-form-field appearance="fill" class="full-width">
+      <input matInput type="number" formControlName="Amount" placeholder="Amount to send" min="0" step="any"
+        aria-label="Amount to send" />
+      <mat-error *ngIf="form.controls['Amount'].hasError('exceededBalance')">
+        Amount exceeds available balance
+      </mat-error>
+      <mat-error *ngIf="form.controls['Amount'].hasError('min')">
+        Amount must be positive
+      </mat-error>
+      <mat-error *ngIf="form.controls['Amount'].hasError('required')">
+        Amount is required
+      </mat-error>
+    </mat-form-field>
 
-  <button mat-raised-button color="primary" [disabled]="form.invalid" (click)="confirmSend()" class="confirm-button">
-    Confirm Send
-  </button>
-</form>
+    <button mat-raised-button color="primary" [disabled]="form.invalid" (click)="confirmSend()" class="confirm-button">
+      Confirm Send
+    </button>
+  </form>
+</div>
