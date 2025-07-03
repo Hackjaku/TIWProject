@@ -40,7 +40,7 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef> Actions </th>
       <td mat-cell *matCellDef="let nft">
-        <app-nft-actions></app-nft-actions>
+        <app-nft-actions [nft]="nft"></app-nft-actions>
       </td>
     </ng-container>
 

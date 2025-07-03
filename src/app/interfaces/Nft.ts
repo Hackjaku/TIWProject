@@ -8,6 +8,8 @@ export interface Nft {
 }
 
 export interface NftDTO {
+  Id: string;
+  Description: string;
   Name: string;
   CreatorName: string;
   OwnerName: string;
@@ -19,4 +21,9 @@ export interface CreateNftDTO {
   Name: string;
   Link: string;
   Description: string;
+}
+
+export interface TransferNftDTO {
+  NftId: string;
+  NewOwnerId: number;
 }

@@ -63,7 +63,6 @@ export class SendDialog implements OnInit {
   }
 
   onOptionSelected(user: UserDTO) {
-    console.log('Selected user:', user);
     this.form.patchValue({ Username: user.Username });
     this.selectedUser = user; // Store the selected user
   }
