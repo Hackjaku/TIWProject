@@ -1,1 +1,27 @@
-<p>new-nft-dialog works!</p>
+
+<div class="container">
+  <form [formGroup]="form" class="send-form">
+
+    <mat-form-field appearance="fill" class="full-width">
+      <input type="text" formControlName="Name" matInput placeholder="NFT Name" aria-label="NFT Name" />
+      <mat-error *ngIf="form.controls['Name'].hasError('required')">
+        Name is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <input type="text" formControlName="Link" matInput placeholder="NFT Link" aria-label="NFT Link" />
+      <mat-error *ngIf="form.controls['Link'].hasError('required')">
+        Link is required
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill" class="full-width">
+      <textarea matInput formControlName="Description" placeholder="NFT Description" aria-label="NFT Description"></textarea>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" [disabled]="form.invalid" (click)="confirmCreate()" class="confirm-button">
+      Confirm Send
+    </button>
+  </form>
+</div>

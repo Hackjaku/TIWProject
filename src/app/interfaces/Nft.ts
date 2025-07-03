@@ -14,3 +14,9 @@ export interface NftDTO {
   CreatedAt: Date;
   Link: string;
 }
+
+export interface CreateNftDTO {
+  Name: string;
+  Link: string;
+  Description: string;
+}

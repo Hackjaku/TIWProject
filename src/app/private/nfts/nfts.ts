@@ -9,6 +9,7 @@ import { Subscription } from 'rxjs';
 import { StorageService } from '../../services/storage-service';
 import { NftService } from '../../services/nft-service';
 import { MatDialog } from '@angular/material/dialog';
+import { NewNftDialog } from '../dialogs/new-nft-dialog/new-nft-dialog';
 
 @Component({
   selector: 'app-nfts',
@@ -65,6 +66,10 @@ export class Nfts implements OnInit, OnDestroy {
   }
 
   newNFTDialog(): void {
+    const dialogRef = this._dialog.open(NewNftDialog, {
+      width: '400px',
+      height: '400px'
+    });
   }
 
   ngOnDestroy(): void {
