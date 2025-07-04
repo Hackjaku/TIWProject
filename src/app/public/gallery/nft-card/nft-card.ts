@@ -4,11 +4,15 @@ import { CommonModule } from '@angular/common';
 import { StorageService } from '../../../services/storage-service';
 import { MatDialog } from '@angular/material/dialog';
 import { BuyOrderDialog } from '../../../private/dialogs/buy-order-dialog/buy-order-dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-nft-card',
   imports: [
-    CommonModule
+    CommonModule,
+    MatButtonModule,
+    MatIconModule
   ],
   templateUrl: './nft-card.html',
   styleUrl: './nft-card.scss'
