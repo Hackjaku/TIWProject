@@ -19,4 +19,8 @@ export class WalletService {
   transferCurrency(transfer: TransferCurrencyDTO): Observable<void> {
     return this._backendService.post('Wallet/transfer', transfer);
   }
+
+  getWalletByCurrencyId(currencyId: string): Observable<WalletDTO> {
+    return this._backendService.get(`Wallet/${currencyId}`);
+  }
 }

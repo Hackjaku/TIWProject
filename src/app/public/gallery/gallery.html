@@ -1,1 +1,11 @@
-<p>gallery works!</p>
+<h3>NFT Gallery</h3>
+
+<div *ngIf="loading">Loading NFTs...</div>
+
+<div *ngIf="!loading && nfts.length === 0">
+  No NFTs found.
+</div>
+
+<div *ngIf="!loading && nfts.length > 0" class="nft-gallery">
+  <app-nft-card *ngFor="let nft of nfts" [nft]="nft"></app-nft-card>
+</div>

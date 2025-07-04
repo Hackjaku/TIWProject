@@ -10,6 +10,7 @@ import { StorageService } from '../../services/storage-service';
 import { NftService } from '../../services/nft-service';
 import { MatDialog } from '@angular/material/dialog';
 import { NewNftDialog } from '../dialogs/new-nft-dialog/new-nft-dialog';
+import { NotificationService } from '../../services/notification-service';
 
 @Component({
   selector: 'app-nfts',
@@ -37,7 +38,8 @@ export class Nfts implements OnInit, OnDestroy {
   constructor(
     private _storageService: StorageService,
     private _nftService: NftService,
-    private _dialog: MatDialog
+    private _dialog: MatDialog,
+    private _notificationService: NotificationService
   ) { }
 
   ngOnInit(): void {
@@ -53,6 +55,15 @@ export class Nfts implements OnInit, OnDestroy {
         this.loading = false; // Set loading to false even if there's an error
       }
     });
+
+    this._notificationService.tokenCreated$.subscribe((nftId: string) => {
+      this.refreshNFTs();
+    });
+
+    this._notificationService.tokenTransfer$.subscribe((nftId: string) => {
+      this.refreshNFTs();
+    });
+
   }
 
   truncateLink(link: string): string {
@@ -69,6 +80,20 @@ export class Nfts implements OnInit, OnDestroy {
     const dialogRef = this._dialog.open(NewNftDialog, {
       width: '400px',
       height: '400px'
+    });
+  }
+
+  refreshNFTs(): void {
+    this.loading = true; // Set loading to true while fetching data
+    this._nftService.getPersonalNFTs().subscribe({
+      next: (nfts: NftDTO[]) => {
+        this.nfts = nfts;
+        this.loading = false; // Set loading to false once data is fetched
+      },
+      error: (err) => {
+        console.error('Error refreshing NFTs:', err);
+        this.loading = false; // Set loading to false even if there's an error
+      }
     });
   }
 

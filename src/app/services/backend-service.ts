@@ -40,6 +40,10 @@ export class BackendService {
       .pipe(catchError(this.handleError));
   }
 
+  public getNotificationUrl(): string {
+    return `http://localhost:8091/notificationhub`;
+  }
+
   private handleError(error: any) {
     console.error('API error:', error);
     // Customize your error handling here

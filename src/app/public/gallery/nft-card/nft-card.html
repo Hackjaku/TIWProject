@@ -1,0 +1,24 @@
+<a [href]="nft.Link" target="_blank" rel="noopener noreferrer" class="nft-card">
+  <div class="preview">
+    <ng-container *ngIf="isImage(); else nonImage">
+      <img [src]="nft.Link" alt="{{ nft.Name }}" />
+    </ng-container>
+    <ng-template #nonImage>
+      <ng-container *ngIf="isPdf()">
+        <i class="file-icon">📄</i>
+      </ng-container>
+      <ng-container *ngIf="isAudio()">
+        <audio [src]="nft.Link" controls></audio>
+      </ng-container>
+      <ng-container *ngIf="!isPdf() && !isAudio()">
+        <i class="file-icon">❓</i>
+      </ng-container>
+    </ng-template>
+  </div>
+
+  <div class="info">
+    <h3>{{ nft.Name }}</h3>
+    <p class="owner">Owned by <strong>{{ nft.OwnerName }}</strong></p>
+    <p class="creator" *ngIf="nft.CreatorName !== nft.OwnerName">Created by {{ nft.CreatorName }}</p>
+  </div>
+</a>
