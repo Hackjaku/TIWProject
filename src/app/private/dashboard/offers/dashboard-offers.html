@@ -1,0 +1,63 @@
+<div class="loading" *ngIf="loading">
+  Loading...
+</div>
+
+<div class="tables" *ngIf="!loading">
+  <div class="offers-created">
+    <h3>Outgoing Buy Offers</h3>
+    <table mat-table [dataSource]="offers.OutgoingBuyOffers" multiTemplateDataRows class="mat-elevation-z8">
+      <!-- Position Column -->
+      <ng-container matColumnDef="nft_name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let offer" class="name-column"> {{ offer.TokenName }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="currency_symbol">
+        <th mat-header-cell *matHeaderCellDef class="symbol-column"> Name </th>
+        <td mat-cell *matCellDef="let offer" class="symbol-column"> {{ offer.WalletCurrencySymbol }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="amount">
+        <th mat-header-cell *matHeaderCellDef class="amount-column"> Amount </th>
+        <td mat-cell *matCellDef="let offer" class="amount-column"> {{ offer.Amount }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef class="actions-column"> Actions </th>
+        <td mat-cell *matCellDef="let offer" class="actions-column"> {{ offer.Amount }} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" class="header"></tr>
+      <tr mat-row *matRowDef="let offer; columns: displayedColumns;" class="offer-row"></tr>
+    </table>
+
+  </div>
+  <div class="offers-received">
+    <h3>Received Offers</h3>
+    <table mat-table [dataSource]="offers.IncomingBuyOffers" multiTemplateDataRows class="mat-elevation-z8">
+      <!-- Position Column -->
+      <ng-container matColumnDef="nft_name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let offer" class="name-column"> {{ offer.TokenName }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="currency_symbol">
+        <th mat-header-cell *matHeaderCellDef class="symbol-column"> Name </th>
+        <td mat-cell *matCellDef="let offer" class="symbol-column"> {{ offer.WalletCurrencySymbol }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="amount">
+        <th mat-header-cell *matHeaderCellDef class="amount-column"> Amount </th>
+        <td mat-cell *matCellDef="let offer" class="amount-column"> {{ offer.Amount }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef class="actions-column"> Actions </th>
+        <td mat-cell *matCellDef="let offer" class="actions-column"> {{ offer.Amount }} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true" class="header"></tr>
+      <tr mat-row *matRowDef="let offer; columns: displayedColumns;" class="offer-row"></tr>
+    </table>
+  </div>
+</div>

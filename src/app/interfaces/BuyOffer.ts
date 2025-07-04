@@ -16,6 +16,6 @@ export interface BuyOfferDTO {
 }
 
 export interface PersonalBuyOffersDTO {
-  OutgingBuyOffers: BuyOfferDTO[];
+  OutgoingBuyOffers: BuyOfferDTO[];
   IncomingBuyOffers: BuyOfferDTO[];
 }
