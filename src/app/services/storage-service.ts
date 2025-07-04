@@ -35,4 +35,9 @@ export class StorageService {
     return user ? user.UserId : null;
   }
 
+  getUsername(): string | null {
+    const user = this.getLoggedUser;
+    return user ? user.Username : null;
+  }
+
 }

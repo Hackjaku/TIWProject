@@ -21,7 +21,7 @@ export class NftCard implements OnInit {
 
   @Input() nft!: NftDTO;
 
-  isLoggedIn: boolean = false;
+  canBuy: boolean = false;
 
   constructor(
     private _storageService: StorageService,
@@ -29,7 +29,7 @@ export class NftCard implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.isLoggedIn = this._storageService.getUserId() !== null;
+    this.canBuy = this._storageService.getUserId() !== null && this._storageService.getUsername() !== this.nft.OwnerName;
   }
 
   openBuyDialog(): void {
