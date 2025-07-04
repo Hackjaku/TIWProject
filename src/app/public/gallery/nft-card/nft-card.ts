@@ -1,6 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NftDTO } from '../../../interfaces/Nft';
 import { CommonModule } from '@angular/common';
+import { StorageService } from '../../../services/storage-service';
+import { MatDialog } from '@angular/material/dialog';
+import { BuyOrderDialog } from '../../../private/dialogs/buy-order-dialog/buy-order-dialog';
 
 @Component({
   selector: 'app-nft-card',
@@ -10,9 +13,28 @@ import { CommonModule } from '@angular/common';
   templateUrl: './nft-card.html',
   styleUrl: './nft-card.scss'
 })
-export class NftCard {
+export class NftCard implements OnInit {
 
   @Input() nft!: NftDTO;
+
+  isLoggedIn: boolean = false;
+
+  constructor(
+    private _storageService: StorageService,
+    private _dialog: MatDialog
+  ) {}
+
+  ngOnInit(): void {
+    this.isLoggedIn = this._storageService.getUserId() !== null;
+  }
+
+  openBuyDialog(): void {
+    this._dialog.open(BuyOrderDialog, {
+      data: {
+        nft: this.nft
+      }
+    });
+  }
 
   isImage(): boolean {
     return /\.(jpg|jpeg|png|gif|bmp|webp)$/i.test(this.nft.Link);

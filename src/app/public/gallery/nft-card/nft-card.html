@@ -1,4 +1,4 @@
-<a [href]="nft.Link" target="_blank" rel="noopener noreferrer" class="nft-card">
+<div class="nft-card">
   <div class="preview">
     <ng-container *ngIf="isImage(); else nonImage">
       <img [src]="nft.Link" alt="{{ nft.Name }}" />
@@ -17,8 +17,14 @@
   </div>
 
   <div class="info">
-    <h3>{{ nft.Name }}</h3>
+    <h3>
+      <a [href]="nft.Link" target="_blank" rel="noopener noreferrer">
+        {{ nft.Name }}
+      </a>
+    </h3>
     <p class="owner">Owned by <strong>{{ nft.OwnerName }}</strong></p>
     <p class="creator" *ngIf="nft.CreatorName !== nft.OwnerName">Created by {{ nft.CreatorName }}</p>
+
+    <button *ngIf="isLoggedIn" (click)="openBuyDialog()" class="buy-button"></button>
   </div>
-</a>
+</div>
