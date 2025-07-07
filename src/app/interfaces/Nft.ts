@@ -31,7 +31,7 @@ export interface TransferNftDTO {
   NewOwnerId: number;
 }
 
-export interface NftOrderDTO {
+export interface NftOrdersDTO {
   SellOrders: SellOfferSimpleDTO[];
   BuyOrders: BuyOfferSimpleDTO[];
 }
