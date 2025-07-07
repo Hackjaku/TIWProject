@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BackendService } from './backend-service';
-import { CreateCurrencyDTO, Currency, GenerateCurrencyDTO } from '../interfaces/Currency';
+import { CreateCurrencyDTO, Currency, CurrencyDetailsDTO, GenerateCurrencyDTO } from '../interfaces/Currency';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -20,7 +20,7 @@ export class CurrencyService {
     return this._backendService.post('Currency/generate', value);
   }
 
-  getAllCyrrencies(): Observable<Currency[]> {
+  getAllCyrrencies(): Observable<CurrencyDetailsDTO[]> {
     return this._backendService.get('Currency');
   }
 

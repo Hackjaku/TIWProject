@@ -5,6 +5,7 @@ import { WalletDTO } from '../../interfaces/Wallet';
 import { WalletService } from '../../services/wallet-service';
 import { SendDialog } from '../dialogs/send-dialog/send-dialog';
 import { NotificationService } from '../../services/notification-service';
+import { WalletHistoryDialog } from '../dialogs/wallet-history-dialog/wallet-history-dialog';
 
 @Component({
   selector: 'app-wallets',
@@ -70,6 +71,15 @@ export class Wallets implements OnInit {
         console.log('Send action completed:', result);
         this.refreshWallet(wallet.CurrencyId); // Refresh the wallet after sending
       }
+    });
+  }
+
+  openHistory(wallet: WalletDTO): void {
+    // Implement wallet history functionality here
+    this._dialog.open(WalletHistoryDialog, {
+      width: '600px',
+      height: '400px',
+      data: { wallet: wallet } // Pass the wallet ID to the dialog
     });
   }
 

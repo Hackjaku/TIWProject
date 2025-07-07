@@ -1,1 +1,80 @@
-<p>marketplace works!</p>
+<!-- Sell Orders Section -->
+<div class="sell-orders-table" style="margin-bottom: 3rem;">
+  <h2>Sell Orders</h2>
+
+  <div *ngIf="loadingSellOrders">Loading Sell Orders...</div>
+  <div *ngIf="!loadingSellOrders && sellOrders.length === 0">No sell orders found.</div>
+
+  <div *ngIf="!loadingSellOrders && sellOrders.length > 0" class="sell-orders-container">
+    <table mat-table [dataSource]="sellOrders" multiTemplateDataRows class="mat-elevation-z8">
+      <ng-container matColumnDef="token_name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let order" class="name-column"> {{ order.TokenName }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="currency">
+        <th mat-header-cell *matHeaderCellDef class="creator-column"> Creator </th>
+        <td mat-cell *matCellDef="let order" class="currency-column"> {{ order.CurrencySymbol }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="amount">
+        <th mat-header-cell *matHeaderCellDef class="amount-column"> Creation Date </th>
+        <td mat-cell *matCellDef="let order" class="amount-column"> {{ order.Amount }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <td mat-cell *matCellDef="let order">
+          <!-- <app-nft-actions [nft]="nft"></app-nft-actions> -->
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="sellTableColumns; sticky: true" class="header"></tr>
+      <tr mat-row *matRowDef="let nft; columns: sellTableColumns;" class="nft-row"></tr>
+    </table>
+  </div>
+</div>
+
+<!-- Exchange Offers Section -->
+<div class="exchange-offers-table">
+  <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+    <h2 style="margin: 0;">Exchange Offers</h2>
+    <button mat-raised-button color="primary" (click)="openCreateExchangeOfferDialog()">Create Exchange Offer</button>
+  </div>
+
+  <div *ngIf="loadingExchangeOffers">Loading Exchange Offers...</div>
+  <div *ngIf="!loadingExchangeOffers && exchangeOffers.length === 0">No exchange offers found.</div>
+
+  <div *ngIf="!loadingExchangeOffers && exchangeOffers.length > 0" class="exchange-offers-container">
+    <table mat-table [dataSource]="exchangeOffers" multiTemplateDataRows class="mat-elevation-z8">
+      <ng-container matColumnDef="requesting_currency">
+        <th mat-header-cell *matHeaderCellDef> Requesting Currency </th>
+        <td mat-cell *matCellDef="let offer" class="requesting-currency-column"> {{ offer.RequestingCurrencySymbol }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="requesting_amount">
+        <th mat-header-cell *matHeaderCellDef class="amount-column"> Requesting Amount </th>
+        <td mat-cell *matCellDef="let offer" class="amount-column"> {{ offer.RequestingAmount }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="giving_currency">
+        <th mat-header-cell *matHeaderCellDef class="creator-column"> Giving Currency </th>
+        <td mat-cell *matCellDef="let offer" class="currency-column"> {{ offer.GivingCurrencySymbol }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="giving_amount">
+        <th mat-header-cell *matHeaderCellDef class="amount-column"> Giving Amount </th>
+        <td mat-cell *matCellDef="let offer" class="amount-column"> {{ offer.GivingAmount }} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <td mat-cell *matCellDef="let offer">
+          <!-- <app-nft-actions [nft]="nft"></app-nft-actions> -->
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="exchangeTableColumns; sticky: true" class="header"></tr>
+      <tr mat-row *matRowDef="let nft; columns: exchangeTableColumns;" class="nft-row"></tr>
+    </table>
+  </div>
+</div>

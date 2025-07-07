@@ -6,7 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import {  MatSelectModule } from '@angular/material/select';
-import { Currency } from '../../../interfaces/Currency';
+import { CurrencyDetailsDTO } from '../../../interfaces/Currency';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CurrencyService } from '../../../services/currency-service';
 import { SellOfferService } from '../../../services/sell-offer-service';
@@ -29,7 +29,7 @@ import { CreateSellOfferDTO } from '../../../interfaces/SellOffer';
 })
 export class SellOrderDialog implements OnInit {
   form!: FormGroup;
-  currencies: Currency[] = [];
+  currencies: CurrencyDetailsDTO[] = [];
 
   constructor(
     public dialogRef: MatDialogRef<SellOrderDialog>,

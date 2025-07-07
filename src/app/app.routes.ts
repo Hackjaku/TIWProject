@@ -42,6 +42,10 @@ export const routes: Routes = [
         loadComponent: () => import('./private/nfts/nfts').then(m => m.Nfts)
       },
       {
+        path: 'marketplace',
+        loadComponent: () => import('./private/marketplace/marketplace').then(m => m.Marketplace)
+      },
+      {
         path: '',
         pathMatch: 'full',
         redirectTo: 'dashboard'

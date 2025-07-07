@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Currency } from '../../interfaces/Currency';
+import { CurrencyDetailsDTO } from '../../interfaces/Currency';
 import { Subscription } from 'rxjs';
 import { CurrencyService } from '../../services/currency-service';
 import { MatDialog } from '@angular/material/dialog';
@@ -20,9 +20,9 @@ import { CurrencyActions } from './currency-actions/currency-actions';
 })
 export class Currencies implements OnInit, OnDestroy {
 
-  displayedColumns: string[] = ['symbol', 'name', 'market_cap', 'generated_balance', 'actions'];
+  displayedColumns: string[] = ['symbol', 'name', 'owner_name', 'market_cap', 'generated_balance', 'market_flow', 'actions'];
 
-  currencies: Currency[] = [];
+  currencies: CurrencyDetailsDTO[] = [];
   loading: boolean = true; // Flag to indicate loading state
 
   currentUserId: number = 0; // This should be set to the current user's ID, possibly from a user service
@@ -40,7 +40,7 @@ export class Currencies implements OnInit, OnDestroy {
     this.currentUserId = this._storageService.getUserId() || 0; // Get the current user's ID from storage service
 
     this.currencySub$ = this._currencyService.getAllCyrrencies().subscribe({
-      next: (currencies: Currency[]) => {
+      next: (currencies: CurrencyDetailsDTO[]) => {
         this.currencies = currencies;
         this.loading = false; // Set loading to false once data is fetched
       },
@@ -57,7 +57,7 @@ export class Currencies implements OnInit, OnDestroy {
     }
   }
 
-  getOwnedClass(currency: Currency) {
+  getOwnedClass(currency: CurrencyDetailsDTO): string {
     return currency.OwnerId === this.currentUserId ? 'owned' : '';
   }
 

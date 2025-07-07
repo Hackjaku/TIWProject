@@ -18,3 +18,8 @@ export interface Currency {
   MarketCap: number | null;
   GeneratedBalance: number
 }
+
+export interface CurrencyDetailsDTO extends Currency {
+  OwnerName: string;
+  MarketFlow: number;
+}

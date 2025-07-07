@@ -12,5 +12,7 @@
     <p><strong>Available:</strong> {{ wallet.AvailableBalance }}</p>
     <p><strong>Frozen:</strong> {{ wallet.FrozenBalance }}</p>
     <button (click)="send(wallet)">Send</button>
+    <button (click)="openHistory(wallet)">History</button>
+
   </div>
 </div>
