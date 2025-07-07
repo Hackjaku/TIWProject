@@ -1,3 +1,6 @@
+import { BuyOfferSimpleDTO } from "./BuyOffer";
+import { SellOfferSimpleDTO } from "./SellOffer";
+
 export interface Nft {
   Id: string;
   CreatorId: number,
@@ -26,4 +29,9 @@ export interface CreateNftDTO {
 export interface TransferNftDTO {
   NftId: string;
   NewOwnerId: number;
+}
+
+export interface NftOrderDTO {
+  SellOrders: SellOfferSimpleDTO[];
+  BuyOrders: BuyOfferSimpleDTO[];
 }

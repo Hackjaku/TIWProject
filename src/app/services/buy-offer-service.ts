@@ -20,6 +20,10 @@ export class BuyOfferService {
     return this._backendService.post(`BuyOffer/accept?offerId=${offerId}`, {});
   }
 
+  rejectBuyOffer(offerId: string): Observable<void> {
+    return this._backendService.post(`BuyOffer/reject?offerId=${offerId}`, {});
+  }
+
   getPersonalBuyOffers(): Observable<PersonalBuyOffersDTO> {
     return this._backendService.get('BuyOffer/personal');
   }

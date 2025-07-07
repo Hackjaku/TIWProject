@@ -1,0 +1,34 @@
+// .actions-column {
+//   display: flex;
+//   gap: 4px;
+//   justify-content: center;
+//   align-items: center;
+// }
+
+// .table-scroll-wrapper {
+//   flex: 1 1 auto;
+//   overflow: auto;
+// }
+
+.actions-column {
+  text-align: center;
+}
+
+td.actions-column {
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+  align-items: center;
+}
+
+mat-icon.reject-offer {
+  color: rgb(212, 49, 49);
+}
+
+mat-icon.accept-offer {
+  color: rgb(33, 145, 67);
+}
+
+mat-icon.cancel-order {
+  color: rgb(212, 49, 49);
+}

@@ -7,3 +7,11 @@ canvas {
   max-width: 100% !important;
   max-height: 100% !important;
 }
+
+.graph-wrapper {
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* Prevents overflow */
+}

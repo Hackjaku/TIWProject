@@ -4,13 +4,16 @@ export interface CreateBuyOfferDTO {
   Amount: number;
 }
 
-export interface BuyOfferDTO {
-  Id: string;
-  TokenId: string;
-  TokenName: string;
+export interface BuyOfferDTO extends BuyOfferSimpleDTO {
   TokenDescription: string | null;
   TokenLink: string;
   WalletId: string;
+}
+
+export interface BuyOfferSimpleDTO {
+  Id: string;
+  TokenId: string;
+  TokenName: string;
   WalletCurrencySymbol: string;
   Amount: number;
 }

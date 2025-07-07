@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { NftDTO } from '../../../interfaces/Nft';
 import { MatDialog } from '@angular/material/dialog';
 import { SendNftDialog } from '../../dialogs/send-nft-dialog/send-nft-dialog';
+import { SellOrderDialog } from '../../dialogs/sell-order-dialog/sell-order-dialog';
 
 @Component({
   selector: 'app-nft-actions',
@@ -46,6 +47,21 @@ export class NftActions implements OnInit {
       if (result) {
         // Handle the result from the modal if needed
         console.log('Transfer action completed:', result);
+      }
+    });
+  }
+
+  placeSellOrder(): void {
+    const dialogRef = this._dialog.open(SellOrderDialog, {
+      width: '400px',
+      height: '400px',
+      data: { nft: this.nft } // Pass the NFT data to the dialog
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // Handle the result from the modal if needed
+        console.log('Sell order action completed:', result);
       }
     });
   }

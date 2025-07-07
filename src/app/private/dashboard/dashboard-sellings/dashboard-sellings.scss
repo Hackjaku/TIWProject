@@ -1,0 +1,28 @@
+td.actions-column {
+  text-align: center;
+  padding: 0;
+}
+
+td.actions-column .action-buttons {
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+
+tr.mat-row,
+tr.mat-header-row {
+  height: 56px; // or whatever is your desired row height
+  vertical-align: middle;
+}
+
+td.mat-cell,
+th.mat-header-cell {
+  vertical-align: middle;
+}
+
+mat-icon.cancel-order {
+  color: rgb(212, 49, 49);
+}

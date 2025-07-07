@@ -3,7 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
-import { PersonalBuyOffersDTO } from '../../../interfaces/BuyOffer';
+import { BuyOfferDTO, PersonalBuyOffersDTO } from '../../../interfaces/BuyOffer';
 import { Subscription } from 'rxjs';
 import { BuyOfferService } from '../../../services/buy-offer-service';
 
@@ -40,6 +40,42 @@ export class DashboardOffers implements OnInit, OnDestroy {
       error: (err) => {
         console.error('Error fetching offers:', err);
         this.loading = false; // Set loading to false even if there's an error
+      }
+    });
+  }
+
+  acceptOffer(offer: BuyOfferDTO) {
+    this._buyOfferService.acceptBuyOffer(offer.Id).subscribe({
+      next: () => {
+        console.log('Offer accepted successfully');
+        // Optionally, refresh the offers list or update the UI
+      },
+      error: (err) => {
+        console.error('Error accepting offer:', err);
+      }
+    });
+  }
+
+  rejectOffer(offer: BuyOfferDTO) {
+    this._buyOfferService.rejectBuyOffer(offer.Id).subscribe({
+      next: () => {
+        console.log('Offer rejected successfully');
+        // Optionally, refresh the offers list or update the UI
+      },
+      error: (err) => {
+        console.error('Error rejecting offer:', err);
+      }
+    });
+  }
+
+  deleteOrder(offer: BuyOfferDTO) {
+    this._buyOfferService.cancelBuyOffer(offer.Id).subscribe({
+      next: () => {
+        console.log('Order cancelled successfully');
+        // Optionally, refresh the offers list or update the UI
+      },
+      error: (err) => {
+        console.error('Error cancelling order:', err);
       }
     });
   }
