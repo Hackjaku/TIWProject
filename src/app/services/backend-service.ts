@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { StorageService } from './storage-service';
 import { catchError, Observable, throwError } from 'rxjs';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,8 @@ export class BackendService {
 
   constructor(
     private httpClient: HttpClient,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private _snackBar: MatSnackBar
   ) { }
 
   private createAuthHeaders(): HttpHeaders {
@@ -44,10 +46,12 @@ export class BackendService {
     return `http://localhost:8091/notificationhub`;
   }
 
-  private handleError(error: any) {
-    console.error('API error:', error);
-    // Customize your error handling here
+  private handleError = (error: any) => {
+    this._snackBar.open("An error occurred: " + (error.message || 'Server error'), 'Close', {
+      duration: 3000,
+      panelClass: ['error-snackbar']
+    });
     return throwError(() => new Error(error.message || 'Server error'));
-  }
+  };
 
 }

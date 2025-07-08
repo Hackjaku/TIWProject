@@ -95,8 +95,7 @@ export class TokenOrdersDialog implements OnInit, OnDestroy {
     this._sellOfferService.acceptSellOffer(order.Id).subscribe({
       next: () => {
         console.log('Order accepted successfully');
-        // Optionally, you can refresh the orders or close the dialog
-        this._dialogref.close();
+        this.refreshOrders();
       },
       error: (err) => {
         console.error('Error accepting order:', err);
@@ -113,8 +112,7 @@ export class TokenOrdersDialog implements OnInit, OnDestroy {
     this._sellOfferService.cancelSellOffer(order.Id).subscribe({
       next: () => {
         console.log('Order cancelled successfully');
-        // Optionally, you can refresh the orders or close the dialog
-        this._dialogref.close();
+        this.refreshOrders();
       },
       error: (err) => {
         console.error('Error cancelling order:', err);
@@ -130,8 +128,7 @@ export class TokenOrdersDialog implements OnInit, OnDestroy {
     this._buyOfferService.acceptBuyOffer(order.Id).subscribe({
       next: () => {
         console.log('Buy order accepted successfully');
-        // Optionally, you can refresh the orders or close the dialog
-        this._dialogref.close();
+        this.refreshOrders();
       },
       error: (err) => {
         console.error('Error accepting buy order:', err);
@@ -143,8 +140,7 @@ export class TokenOrdersDialog implements OnInit, OnDestroy {
     this._buyOfferService.rejectBuyOffer(order.Id).subscribe({
       next: () => {
         console.log('Buy order rejected successfully');
-        // Optionally, you can refresh the orders or close the dialog
-        this._dialogref.close();
+        this.refreshOrders();
       },
       error: (err) => {
         console.error('Error rejecting buy order:', err);
@@ -160,8 +156,7 @@ export class TokenOrdersDialog implements OnInit, OnDestroy {
     this._sellOfferService.cancelSellOffer(order.Id).subscribe({
       next: () => {
         console.log('Buy order cancelled successfully');
-        // Optionally, you can refresh the orders or close the dialog
-        this._dialogref.close();
+        this.refreshOrders();
       },
       error: (err) => {
         console.error('Error cancelling buy order:', err);
