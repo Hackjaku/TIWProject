@@ -3,9 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { WalletDTO } from '../../interfaces/Wallet';
 import { WalletService } from '../../services/wallet-service';
-import { SendDialog } from '../dialogs/send-dialog/send-dialog';
+import { SendDialog } from '../../dialogs/send-dialog/send-dialog';
 import { NotificationService } from '../../services/notification-service';
-import { WalletHistoryDialog } from '../dialogs/wallet-history-dialog/wallet-history-dialog';
+import { WalletHistoryDialog } from '../../dialogs/wallet-history-dialog/wallet-history-dialog';
 
 @Component({
   selector: 'app-wallets',

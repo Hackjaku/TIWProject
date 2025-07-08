@@ -5,14 +5,14 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { CurrencyDetailsDTO } from '../../../interfaces/Currency';
+import { CurrencyDetailsDTO } from '../../interfaces/Currency';
 import { MatDialogRef } from '@angular/material/dialog';
-import { WalletService } from '../../../services/wallet-service';
-import { CurrencyService } from '../../../services/currency-service';
-import { ExchangeOfferService } from '../../../services/exchange-offer-service';
-import { WalletDTO } from '../../../interfaces/Wallet';
+import { WalletService } from '../../services/wallet-service';
+import { CurrencyService } from '../../services/currency-service';
+import { ExchangeOfferService } from '../../services/exchange-offer-service';
+import { WalletDTO } from '../../interfaces/Wallet';
 import { Subscription } from 'rxjs';
-import { CreateExchangeOfferDTO } from '../../../interfaces/ExchangeOffer';
+import { CreateExchangeOfferDTO } from '../../interfaces/ExchangeOffer';
 
 @Component({
   selector: 'app-exchange-order-dialog',

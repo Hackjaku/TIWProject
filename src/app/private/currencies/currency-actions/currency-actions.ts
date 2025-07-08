@@ -7,7 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Currency } from '../../../interfaces/Currency';
 import { MatDialog } from '@angular/material/dialog';
-import { AddCurrencyDialog } from '../../dialogs/add-currency-dialog/add-currency-dialog';
+import { AddCurrencyDialog } from '../../../dialogs/add-currency-dialog/add-currency-dialog';
 
 @Component({
   selector: 'app-currency-actions',

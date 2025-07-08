@@ -9,7 +9,7 @@ import { Subscription } from 'rxjs';
 import { StorageService } from '../../services/storage-service';
 import { NftService } from '../../services/nft-service';
 import { MatDialog } from '@angular/material/dialog';
-import { NewNftDialog } from '../dialogs/new-nft-dialog/new-nft-dialog';
+import { NewNftDialog } from '../../dialogs/new-nft-dialog/new-nft-dialog';
 import { NotificationService } from '../../services/notification-service';
 
 @Component({

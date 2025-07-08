@@ -5,11 +5,11 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { NftDTO, TransferNftDTO } from '../../../interfaces/Nft';
-import { UserDTO } from '../../../interfaces/User';
+import { NftDTO, TransferNftDTO } from '../../interfaces/Nft';
+import { UserDTO } from '../../interfaces/User';
 import { catchError, debounceTime, distinctUntilChanged, Observable, of, switchMap } from 'rxjs';
-import { NftService } from '../../../services/nft-service';
-import { UserService } from '../../../services/user-service';
+import { NftService } from '../../services/nft-service';
+import { UserService } from '../../services/user-service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({

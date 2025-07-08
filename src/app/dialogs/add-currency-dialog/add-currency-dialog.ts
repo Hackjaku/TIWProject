@@ -4,8 +4,8 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { CurrencyService } from '../../../services/currency-service';
-import { Currency, GenerateCurrencyDTO } from '../../../interfaces/Currency';
+import { CurrencyService } from '../../services/currency-service';
+import { Currency, GenerateCurrencyDTO } from '../../interfaces/Currency';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 
 @Component({

@@ -8,8 +8,8 @@ import { CommonModule } from '@angular/common';
 import { MatTableModule } from '@angular/material/table';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { NewCurrencyDialog } from '../dialogs/new-currency-dialog/new-currency-dialog';
 import { CurrencyActions } from './currency-actions/currency-actions';
+import { NewCurrencyDialog } from '../../dialogs/new-currency-dialog/new-currency-dialog';
 
 
 @Component({

@@ -7,9 +7,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { NftDTO } from '../../../interfaces/Nft';
 import { MatDialog } from '@angular/material/dialog';
-import { SendNftDialog } from '../../dialogs/send-nft-dialog/send-nft-dialog';
-import { SellOrderDialog } from '../../dialogs/sell-order-dialog/sell-order-dialog';
-import { TokenOrdersDialog } from '../../dialogs/token-orders-dialog/token-orders-dialog';
+import { SendNftDialog } from '../../../dialogs/send-nft-dialog/send-nft-dialog';
+import { SellOrderDialog } from '../../../dialogs/sell-order-dialog/sell-order-dialog';
+import { TokenOrdersDialog } from '../../../dialogs/token-orders-dialog/token-orders-dialog';
 
 @Component({
   selector: 'app-nft-actions',

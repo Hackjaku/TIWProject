@@ -1,10 +1,10 @@
 import { AfterViewInit, Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { DailyTransactionsDTO } from '../../../interfaces/Transaction';
-import { TransactionService } from '../../../services/transaction-service';
+import { DailyTransactionsDTO } from '../../interfaces/Transaction';
+import { TransactionService } from '../../services/transaction-service';
 import { Subscription } from 'rxjs';
 import { Chart, registerables } from 'chart.js';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { WalletDTO } from '../../../interfaces/Wallet';
+import { WalletDTO } from '../../interfaces/Wallet';
 import { ViewChild, ElementRef } from '@angular/core';
 
 Chart.register(...registerables);
@@ -40,13 +40,13 @@ export class WalletHistoryDialog implements OnInit, OnDestroy, AfterViewInit {
   ngOnInit(): void {
     this.transactionHistorySub$ = this._transactionService.getWalletHistory(this.data.wallet.WalletId)
       .subscribe({
-        next: (data) => {
+        next: (data: DailyTransactionsDTO[]) => {
           this.chartData = data;
           this.processChartData();
           this.dataReady = true;
           this.tryRenderChart();
         },
-        error: (error) => {
+        error: (error: any) => {
           console.error('Error fetching wallet history:', error);
         }
       });

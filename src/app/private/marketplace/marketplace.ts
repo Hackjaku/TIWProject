@@ -9,7 +9,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { SellOfferDTO } from '../../interfaces/SellOffer';
 import { ExchangeOfferDTO } from '../../interfaces/ExchangeOffer';
 import { Subscription } from 'rxjs';
-import { ExchangeOrderDialog } from '../dialogs/exchange-order-dialog/exchange-order-dialog';
+import { ExchangeOrderDialog } from '../../dialogs/exchange-order-dialog/exchange-order-dialog';
 import { StorageService } from '../../services/storage-service';
 
 @Component({

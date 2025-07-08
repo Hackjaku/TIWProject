@@ -18,4 +18,5 @@ export interface SellOfferSimpleDTO {
   TokenName: string;
   CurrencySymbol: string;
   Amount: number;
+  UserId: number;
 }

@@ -6,12 +6,12 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import {  MatSelectModule } from '@angular/material/select';
-import { CurrencyDetailsDTO } from '../../../interfaces/Currency';
+import { CurrencyDetailsDTO } from '../../interfaces/Currency';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { CurrencyService } from '../../../services/currency-service';
-import { SellOfferService } from '../../../services/sell-offer-service';
-import { NftDTO } from '../../../interfaces/Nft';
-import { CreateSellOfferDTO } from '../../../interfaces/SellOffer';
+import { CurrencyService } from '../../services/currency-service';
+import { SellOfferService } from '../../services/sell-offer-service';
+import { NftDTO } from '../../interfaces/Nft';
+import { CreateSellOfferDTO } from '../../interfaces/SellOffer';
 
 @Component({
   selector: 'app-sell-order-dialog',

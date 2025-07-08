@@ -3,11 +3,11 @@ import { NftDTO } from '../../../interfaces/Nft';
 import { CommonModule } from '@angular/common';
 import { StorageService } from '../../../services/storage-service';
 import { MatDialog } from '@angular/material/dialog';
-import { BuyOrderDialog } from '../../../private/dialogs/buy-order-dialog/buy-order-dialog';
+import { BuyOrderDialog } from '../../../dialogs/buy-order-dialog/buy-order-dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { SellOrderDialog } from '../../../private/dialogs/sell-order-dialog/sell-order-dialog';
-import { TokenOrdersDialog } from '../../../private/dialogs/token-orders-dialog/token-orders-dialog';
+import { SellOrderDialog } from '../../../dialogs/sell-order-dialog/sell-order-dialog';
+import { TokenOrdersDialog } from '../../../dialogs/token-orders-dialog/token-orders-dialog';
 
 @Component({
   selector: 'app-nft-card',

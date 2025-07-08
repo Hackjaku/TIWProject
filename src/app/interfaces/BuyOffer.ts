@@ -16,6 +16,7 @@ export interface BuyOfferSimpleDTO {
   TokenName: string;
   WalletCurrencySymbol: string;
   Amount: number;
+  UserId: number;
 }
 
 export interface PersonalBuyOffersDTO {

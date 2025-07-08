@@ -4,9 +4,9 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { NftService } from '../../../services/nft-service';
+import { NftService } from '../../services/nft-service';
 import { MatDialogRef } from '@angular/material/dialog';
-import { CreateNftDTO } from '../../../interfaces/Nft';
+import { CreateNftDTO } from '../../interfaces/Nft';
 
 @Component({
   selector: 'app-new-nft-dialog',

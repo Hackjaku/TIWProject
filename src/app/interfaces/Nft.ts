@@ -16,6 +16,7 @@ export interface NftDTO {
   Name: string;
   CreatorName: string;
   OwnerName: string;
+  OwnerId: number;
   CreatedAt: Date;
   Link: string;
 }

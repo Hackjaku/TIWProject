@@ -1,11 +1,11 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { WalletService } from '../../../services/wallet-service';
-import { UserDTO } from '../../../interfaces/User';
-import { TransferCurrencyDTO, WalletDTO } from '../../../interfaces/Wallet';
+import { WalletService } from '../../services/wallet-service';
+import { UserDTO } from '../../interfaces/User';
+import { TransferCurrencyDTO, WalletDTO } from '../../interfaces/Wallet';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { UserService } from '../../../services/user-service';
+import { UserService } from '../../services/user-service';
 import { catchError, debounceTime, distinctUntilChanged, Observable, of, switchMap } from 'rxjs';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';

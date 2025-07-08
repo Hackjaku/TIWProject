@@ -1,17 +1,17 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { NftDTO } from '../../../interfaces/Nft';
-import { WalletService } from '../../../services/wallet-service';
+import { NftDTO } from '../../interfaces/Nft';
+import { WalletService } from '../../services/wallet-service';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { WalletDTO } from '../../../interfaces/Wallet';
+import { WalletDTO } from '../../interfaces/Wallet';
 import { CommonModule } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { BuyOfferService } from '../../../services/buy-offer-service';
-import { CreateBuyOfferDTO } from '../../../interfaces/BuyOffer';
+import { BuyOfferService } from '../../services/buy-offer-service';
+import { CreateBuyOfferDTO } from '../../interfaces/BuyOffer';
 
 @Component({
   selector: 'app-buy-order-dialog',

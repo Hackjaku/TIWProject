@@ -3,8 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { CurrencyService } from '../../../services/currency-service';
-import { CreateCurrencyDTO } from '../../../interfaces/Currency';
+import { CurrencyService } from '../../services/currency-service';
+import { CreateCurrencyDTO } from '../../interfaces/Currency';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 
