@@ -1,25 +1,28 @@
-// .actions-column {
-//   display: flex;
-//   gap: 4px;
-//   justify-content: center;
-//   align-items: center;
-// }
-
-// .table-scroll-wrapper {
-//   flex: 1 1 auto;
-//   overflow: auto;
-// }
-
-.actions-column {
+td.actions-column {
   text-align: center;
+  padding: 0;
 }
 
-td.actions-column {
+td.actions-column .action-buttons {
   display: flex;
   gap: 4px;
   justify-content: center;
   align-items: center;
+  height: 100%;
 }
+
+
+tr.mat-row,
+tr.mat-header-row {
+  height: 56px; // or whatever is your desired row height
+  vertical-align: middle;
+}
+
+td.mat-cell,
+th.mat-header-cell {
+  vertical-align: middle;
+}
+
 
 mat-icon.reject-offer {
   color: rgb(212, 49, 49);
@@ -31,4 +34,14 @@ mat-icon.accept-offer {
 
 mat-icon.cancel-order {
   color: rgb(212, 49, 49);
+}
+
+
+:host {
+  display: block;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  overflow: auto;
 }
