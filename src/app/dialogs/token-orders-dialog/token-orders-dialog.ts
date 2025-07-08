@@ -62,6 +62,11 @@ export class TokenOrdersDialog implements OnInit, OnDestroy {
       this.refreshOrders();
     });
 
+    this._notificationService.refreshSellOffers$.subscribe(() => {
+      console.log('Refreshing sell offers due to notification');
+      this.refreshOrders();
+    });
+
   }
 
   isLoggedIn(): boolean {

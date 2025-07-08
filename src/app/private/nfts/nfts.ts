@@ -56,11 +56,7 @@ export class Nfts implements OnInit, OnDestroy {
       }
     });
 
-    this._notificationService.tokenCreated$.subscribe((nftId: string) => {
-      this.refreshNFTs();
-    });
-
-    this._notificationService.tokenTransfer$.subscribe((nftId: string) => {
+    this._notificationService.refreshTokens$.subscribe(() => {
       this.refreshNFTs();
     });
 

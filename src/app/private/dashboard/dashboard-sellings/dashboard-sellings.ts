@@ -6,6 +6,7 @@ import { MatTableModule } from '@angular/material/table';
 import { SellOfferService } from '../../../services/sell-offer-service';
 import { Subscription } from 'rxjs';
 import { SellOfferDTO } from '../../../interfaces/SellOffer';
+import { NotificationService } from '../../../services/notification-service';
 
 @Component({
   selector: 'app-dashboard-sellings',
@@ -28,7 +29,8 @@ export class DashboardSellings implements OnInit, OnDestroy {
   public sellOrdersSub$!: Subscription;
 
   constructor(
-    private _sellOrderService: SellOfferService
+    private _sellOrderService: SellOfferService,
+    private _notificationService: NotificationService
   ) { }
 
   ngOnInit(): void {
@@ -40,6 +42,25 @@ export class DashboardSellings implements OnInit, OnDestroy {
       error: (err) => {
         console.error('Error fetching sell orders:', err);
         this.loading = false; // Set loading to false even if there's an error
+      }
+    });
+
+    this._notificationService.refreshSellOffers$.subscribe(() => {
+      console.log('Refreshing sell orders due to notification');
+      this.refreshSellOrders();
+    });
+
+  }
+
+  refreshSellOrders(): void {
+    console.log('Refreshing sell orders');
+    this._sellOrderService.getPersonalSellOffers().subscribe({
+      next: (orders: SellOfferDTO[]) => {
+        this.sellOrders = orders;
+        console.log('Sell orders refreshed successfully');
+      },
+      error: (err) => {
+        console.error('Error refreshing sell orders:', err);
       }
     });
   }

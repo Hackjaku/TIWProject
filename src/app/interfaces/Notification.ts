@@ -12,3 +12,9 @@ enum BuyOfferNotificationType {
     BuyOfferRejected = 3,
     BuyOfferCancelled = 4
 }
+
+export interface SellOfferNotificationDTO {
+  TokenName: string;
+  Amount: number;
+  CurrencySymbol: string;
+}

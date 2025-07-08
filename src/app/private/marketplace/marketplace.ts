@@ -78,6 +78,29 @@ export class Marketplace implements OnInit, OnDestroy {
       console.log('Refreshing exchange offers due to notification');
       this.refreshExchangeOffers();
     });
+
+    this._notificationService.refreshSellOffers$.subscribe(() => {
+      console.log('Refreshing sell offers due to notification');
+      this.refreshSellOrders();
+    });
+  }
+
+  refreshSellOrders(): void {
+    this.loadingSellOrders = true; // Set loading to true while fetching data
+    // close previous subscription if exists
+    if (this.sellOrdersSub$) {
+      this.sellOrdersSub$.unsubscribe();
+    }
+    this.sellOrdersSub$ = this._sellOfferService.getAllSellOffers().subscribe({
+      next: (sellOffers: SellOfferDTO[]) => {
+        this.sellOrders = sellOffers;
+        this.loadingSellOrders = false; // Set loading to false once data is fetched
+      },
+      error: (err) => {
+        console.error('Error fetching sell offers:', err);
+        this.loadingSellOrders = false; // Set loading to false even if there's an error
+      }
+    });
   }
 
   refreshExchangeOffers(): void {

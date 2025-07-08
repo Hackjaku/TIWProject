@@ -36,3 +36,8 @@ export interface NftOrdersDTO {
   SellOrders: SellOfferSimpleDTO[];
   BuyOrders: BuyOfferSimpleDTO[];
 }
+
+export interface PersonalNftNotificationDTO {
+  Name: string;
+  CreatorName: string;
+}

@@ -39,7 +39,7 @@ export class Gallery implements OnInit {
       }
     });
 
-    this._notificationService.tokenCreated$.subscribe((nftId: string) => {
+    this._notificationService.refreshTokens$.subscribe(() => {
       this.refreshNFTs();
     });
   }

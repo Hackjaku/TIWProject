@@ -3,8 +3,9 @@ import * as signalR from '@microsoft/signalr';
 import { Subject } from 'rxjs';
 import { BackendService } from './backend-service';
 import { StorageService } from './storage-service';
-import { BuyOfferNotificationDTO } from '../interfaces/Notification';
+import { BuyOfferNotificationDTO, SellOfferNotificationDTO } from '../interfaces/Notification';
 import { ExchangeOfferNotificationDTO } from '../interfaces/ExchangeOffer';
+import { PersonalNftNotificationDTO } from '../interfaces/Nft';
 
 @Injectable({
   providedIn: 'root'
@@ -26,17 +27,20 @@ export class NotificationService {
   refreshExchangeOffers$ = this.refreshExchangeOffers.asObservable();
   personalExchangeOfferNotification$ = this.personalExchangeOfferNotification.asObservable();
 
+  private refreshTokens = new Subject<void>();
+  private personalTokenNotification = new Subject<string>();
+  refreshTokens$ = this.refreshTokens.asObservable();
+  personalTokenNotification$ = this.personalTokenNotification.asObservable();
+
+  private refreshSellOffers = new Subject<void>();
+  private personalSellOfferNotification = new Subject<SellOfferNotificationDTO>();
+  refreshSellOffers$ = this.refreshSellOffers.asObservable();
+  personalSellOfferNotification$ = this.personalSellOfferNotification.asObservable();
 
 
   private currencyTransfer = new Subject<string>();
-  private tokenCreated = new Subject<string>();
-  private tokenTransfer = new Subject<string>();
-
-
 
   currencyTransfer$ = this.currencyTransfer.asObservable();
-  tokenCreated$ = this.tokenCreated.asObservable();
-  tokenTransfer$ = this.tokenTransfer.asObservable();
 
   constructor(
     private _backendService: BackendService,
@@ -59,17 +63,6 @@ export class NotificationService {
     this.hubConnection.on('CurrencyTransfer', (currencyId: string) => {
       console.log('Received currency:', currencyId);
       this.currencyTransfer.next(currencyId);
-    });
-
-
-    this.hubConnection.on('TokenCreated', (tokenId: string) => {
-      console.log('Received token created:', tokenId);
-      this.tokenCreated.next(tokenId);
-    });
-
-    this.hubConnection.on('TokenTransfer', (tokenId: string) => {
-      console.log('Received token transfer:', tokenId);
-      this.tokenTransfer.next(tokenId);
     });
 
     // #region Buy Offer Listeners
@@ -102,6 +95,30 @@ export class NotificationService {
     this.hubConnection.on('RefreshExchangeOffers', () => {
       console.log('Received refresh exchange offers signal');
       this.refreshExchangeOffers.next();
+    });
+    // #endregion
+
+    // #region Token Listeners
+    this.hubConnection.on('RefreshTokens', () => {
+      console.log('Received refresh tokens signal');
+      this.refreshTokens.next();
+    });
+
+    this.hubConnection.on('PersonalTokenNotification', (tokenNotification: PersonalNftNotificationDTO) => {
+      console.log('Received personal token notification:', tokenNotification);
+      this.personalTokenNotification.next(tokenNotification.Name);
+    });
+    // #endregion
+
+    // #region Sell Offer Listeners
+    this.hubConnection.on('PersonalSellOffer', (sellOfferNotification: SellOfferNotificationDTO) => {
+      console.log('Received personal sell offer:', sellOfferNotification);
+      this.personalSellOfferNotification.next(sellOfferNotification);
+    });
+
+    this.hubConnection.on('RefreshSellOffers', () => {
+      console.log('Received refresh sell offers signal');
+      this.refreshSellOffers.next();
     });
     // #endregion
 
