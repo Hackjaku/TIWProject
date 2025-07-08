@@ -1,8 +1,8 @@
 export interface BuyOfferNotificationDTO {
-  TokenName: string;
-  Amout: number;
-  CurrencySymbol: string;
-  NotificationType:BuyOfferNotificationType
+  tokenName: string;
+  amout: number;
+  currencySymbol: string;
+  notificationType:BuyOfferNotificationType
 }
 
 enum BuyOfferNotificationType {
@@ -14,7 +14,26 @@ enum BuyOfferNotificationType {
 }
 
 export interface SellOfferNotificationDTO {
-  TokenName: string;
-  Amount: number;
-  CurrencySymbol: string;
+  tokenName: string;
+  amount: number;
+  currencySymbol: string;
+}
+
+export interface WalletNotificationDTO {
+  currencySymbol: string;
+  amount: number;
+  username: string;
+  walletId: string;
+}
+
+export interface TokenNotificationDTO {
+  name: string;
+  creatorName: string;
+}
+
+export interface ExchangeOfferNotificationDTO {
+  requestingCurrencySymbol: string;
+  givingCurrencySymbol: string;
+  givingAmount: number;
+  requestingAmount: number;
 }

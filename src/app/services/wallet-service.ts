@@ -23,4 +23,9 @@ export class WalletService {
   getWalletByCurrencyId(currencyId: string): Observable<WalletDTO> {
     return this._backendService.get(`Wallet/${currencyId}`);
   }
+
+  getWalletById(walletId: string): Observable<WalletDTO> {
+    console.log("querying for ", walletId);
+    return this._backendService.get(`Wallet/by-id?walletId=${walletId}`);
+  }
 }

@@ -3,9 +3,9 @@ import * as signalR from '@microsoft/signalr';
 import { Subject } from 'rxjs';
 import { BackendService } from './backend-service';
 import { StorageService } from './storage-service';
-import { BuyOfferNotificationDTO, SellOfferNotificationDTO } from '../interfaces/Notification';
-import { ExchangeOfferNotificationDTO } from '../interfaces/ExchangeOffer';
-import { PersonalNftNotificationDTO } from '../interfaces/Nft';
+import { BuyOfferNotificationDTO, SellOfferNotificationDTO, WalletNotificationDTO } from '../interfaces/Notification';
+import { ExchangeOfferNotificationDTO } from '../interfaces/Notification';
+import { TokenNotificationDTO } from '../interfaces/Notification';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +28,7 @@ export class NotificationService {
   personalExchangeOfferNotification$ = this.personalExchangeOfferNotification.asObservable();
 
   private refreshTokens = new Subject<void>();
-  private personalTokenNotification = new Subject<string>();
+  private personalTokenNotification = new Subject<TokenNotificationDTO>();
   refreshTokens$ = this.refreshTokens.asObservable();
   personalTokenNotification$ = this.personalTokenNotification.asObservable();
 
@@ -38,9 +38,8 @@ export class NotificationService {
   personalSellOfferNotification$ = this.personalSellOfferNotification.asObservable();
 
 
-  private currencyTransfer = new Subject<string>();
-
-  currencyTransfer$ = this.currencyTransfer.asObservable();
+  private personalWalletNotification = new Subject<WalletNotificationDTO>();
+  personalWalletNotification$ = this.personalWalletNotification.asObservable();
 
   constructor(
     private _backendService: BackendService,
@@ -60,10 +59,6 @@ export class NotificationService {
   }
 
   private registerListeners(): void {
-    this.hubConnection.on('CurrencyTransfer', (currencyId: string) => {
-      console.log('Received currency:', currencyId);
-      this.currencyTransfer.next(currencyId);
-    });
 
     // #region Buy Offer Listeners
     // ? PERSONAL, YOU RECEIVED AN OFFER
@@ -104,9 +99,9 @@ export class NotificationService {
       this.refreshTokens.next();
     });
 
-    this.hubConnection.on('PersonalTokenNotification', (tokenNotification: PersonalNftNotificationDTO) => {
+    this.hubConnection.on('PersonalTokenNotification', (tokenNotification: TokenNotificationDTO) => {
       console.log('Received personal token notification:', tokenNotification);
-      this.personalTokenNotification.next(tokenNotification.Name);
+      this.personalTokenNotification.next(tokenNotification);
     });
     // #endregion
 
@@ -122,5 +117,11 @@ export class NotificationService {
     });
     // #endregion
 
+    // #region Wallet Listeners
+    this.hubConnection.on('PersonalWallet', (walletNotification: WalletNotificationDTO) => {
+      console.log('Received personal wallet notification:', walletNotification);
+      this.personalWalletNotification.next(walletNotification);
+    });
+    // #endregion
   }
 }

@@ -1,11 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { WalletDTO } from '../../interfaces/Wallet';
 import { WalletService } from '../../services/wallet-service';
 import { SendDialog } from '../../dialogs/send-dialog/send-dialog';
 import { NotificationService } from '../../services/notification-service';
 import { WalletHistoryDialog } from '../../dialogs/wallet-history-dialog/wallet-history-dialog';
+import { WalletNotificationDTO } from '../../interfaces/Notification';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-wallets',
@@ -13,9 +15,13 @@ import { WalletHistoryDialog } from '../../dialogs/wallet-history-dialog/wallet-
   templateUrl: './wallets.html',
   styleUrl: './wallets.scss'
 })
-export class Wallets implements OnInit {
+export class Wallets implements OnInit, OnDestroy {
   wallets: WalletDTO[] = [];
   loading = true;
+
+  allWalletsSub$!: Subscription;
+  refreshSubs: Subscription[] = [];
+
 
   constructor(
     private _walletService: WalletService,
@@ -23,38 +29,35 @@ export class Wallets implements OnInit {
     private _notificationService: NotificationService
   ) { }
 
+
   ngOnInit(): void {
-    this._walletService.getWallets().subscribe({
-      next: (data: WalletDTO[]) => {
-        this.wallets = data;
-        this.loading = false;
-      },
-      error: (err) => {
-        console.error('Error fetching wallets:', err);
-        this.loading = false;
-      }
+    this.allWalletsSub$ = this._walletService.getWallets().subscribe({
+      next: (data) => { this.wallets = data; this.loading = false; },
+      error: (err) => { console.error(err); this.loading = false; }
     });
 
-    this._notificationService.currencyTransfer$.subscribe((currencyId: string) => {
-      this.refreshWallet(currencyId);
-    })
-
+    this._notificationService.personalWalletNotification$.subscribe({
+      next: (notification: WalletNotificationDTO) => {
+        console.log('Received wallet notification:', notification);
+        console.log('Refreshing wallet with ID:', notification.walletId);
+        this.refreshWallet(notification.walletId);
+      },
+      error: (err) => console.error('Error in personal wallet notification:', err)
+    });
   }
 
-  refreshWallet(currencyId: string): void {
-    this._walletService.getWalletByCurrencyId(currencyId).subscribe({
-      next: (wallet: WalletDTO) => {
-        const index = this.wallets.findIndex(w => w.CurrencyId === currencyId);
-        if (index !== -1) {
-          this.wallets[index] = wallet; // Update existing wallet
-        } else {
-          this.wallets.push(wallet); // Add new wallet if not found
-        }
-      },
-      error: (err: any) => {
-        console.error('Error refreshing wallet:', err);
-      }
+  refreshWallet(walletId: string): void {
+    const sub = this._walletService.getWalletById(walletId).subscribe({
+      next: (wallet) => this.updateWalletList(wallet),
+      error: (err) => console.error('Refresh error:', err)
     });
+    this.refreshSubs.push(sub);
+  }
+
+  updateWalletList(updated: WalletDTO): void {
+    const idx = this.wallets.findIndex(w => w.WalletId === updated.WalletId);
+    if (idx !== -1) this.wallets[idx] = updated;
+    else this.wallets.push(updated);
   }
 
   send(wallet: WalletDTO): void {
@@ -67,9 +70,6 @@ export class Wallets implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        // Handle the result from the modal if needed
-        console.log('Send action completed:', result);
-        this.refreshWallet(wallet.CurrencyId); // Refresh the wallet after sending
       }
     });
   }
@@ -81,6 +81,11 @@ export class Wallets implements OnInit {
       height: '400px',
       data: { wallet: wallet } // Pass the wallet ID to the dialog
     });
+  }
+
+  ngOnDestroy(): void {
+    this.allWalletsSub$?.unsubscribe();
+    this.refreshSubs.forEach(s => s.unsubscribe());
   }
 
 }

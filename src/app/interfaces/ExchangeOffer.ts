@@ -19,10 +19,3 @@ export interface CreateExchangeOfferDTO {
   GivingAmount: number;
   RequestingAmount: number;
 }
-
-export interface ExchangeOfferNotificationDTO {
-  RequestingCurrencySymbol: string;
-  GivingCurrencySymbol: string;
-  GivingAmount: number;
-  RequestingAmount: number;
-}
