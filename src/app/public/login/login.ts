@@ -6,6 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { Route, Router } from '@angular/router';
 import { UserService } from '../../services/user-service';
 import { StorageService } from '../../services/storage-service';
+import { LoginResponse } from '../../interfaces/User';
 
 @Component({
   selector: 'app-login',
@@ -46,7 +47,7 @@ export class Login {
       this.loginForm.value.username,
       this.loginForm.value.password
     ).subscribe({
-      next: (response) => {
+      next: (response: LoginResponse) => {
         console.log('Login successful:', response);
         this._storageService.setLoggedUser(response);
         this._router.navigate(['/private/dashboard']); // Redirect to dashboard after successful login

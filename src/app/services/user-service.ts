@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BackendService } from './backend-service';
-import { LoginRequest, LoginResponse, UserDTO } from '../interfaces/User';
+import { LoginRequest, LoginResponse, RegisterUserDTO, UserDTO } from '../interfaces/User';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -18,6 +18,11 @@ export class UserService {
       Password: password
     };
     return this.backendService.post('User/login', loginRequest);
+  }
+
+  register(user: RegisterUserDTO): Observable<LoginResponse> {
+    // Register a new user
+    return this.backendService.post('User/register', user);
   }
 
   searchUser(username: string): Observable<UserDTO[]> {

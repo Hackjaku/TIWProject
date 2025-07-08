@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Offers } from '../offers/offers';
 import { DashboardSellings } from './dashboard-sellings/dashboard-sellings';
 import { DashboardGraph } from './dashboard-graph/dashboard-graph';
 import { DashboardList } from './dashboard-list/dashboard-list';

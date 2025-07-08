@@ -19,3 +19,11 @@ export interface UserDTO {
   LastName: string,
   Email: string,
 }
+
+export interface RegisterUserDTO {
+  Username: string,
+  FirstName: string,
+  LastName: string,
+  Email: string,
+  Password: string
+}

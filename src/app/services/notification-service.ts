@@ -3,6 +3,7 @@ import * as signalR from '@microsoft/signalr';
 import { Subject } from 'rxjs';
 import { BackendService } from './backend-service';
 import { StorageService } from './storage-service';
+import { BuyOfferNotificationDTO } from '../interfaces/Notification';
 
 @Injectable({
   providedIn: 'root'
@@ -11,16 +12,23 @@ export class NotificationService {
 
   private hubConnection!: signalR.HubConnection;
 
+  private personalBuyOfferNotification = new Subject<BuyOfferNotificationDTO>();
+  private refreshBuyOffers = new Subject<void>();
+
+  personalBuyOfferNotification$ = this.personalBuyOfferNotification.asObservable();
+  refreshBuyOffers$ = this.refreshBuyOffers.asObservable();
+
+
+
   private currencyTransfer = new Subject<string>();
   private tokenCreated = new Subject<string>();
   private tokenTransfer = new Subject<string>();
-  private buyOfferCreated = new Subject<string>();
+
 
 
   currencyTransfer$ = this.currencyTransfer.asObservable();
   tokenCreated$ = this.tokenCreated.asObservable();
   tokenTransfer$ = this.tokenTransfer.asObservable();
-  buyOfferCreated$ = this.buyOfferCreated.asObservable();
 
   constructor(
     private _backendService: BackendService,
@@ -45,10 +53,6 @@ export class NotificationService {
       this.currencyTransfer.next(currencyId);
     });
 
-    this.hubConnection.on('BuyOfferCreated', (offerId: string) => { // todo need something more here
-      console.log('Received offer created:', offerId);
-      this.buyOfferCreated.next(offerId);
-    });
 
     this.hubConnection.on('TokenCreated', (tokenId: string) => {
       console.log('Received token created:', tokenId);
@@ -59,6 +63,20 @@ export class NotificationService {
       console.log('Received token transfer:', tokenId);
       this.tokenTransfer.next(tokenId);
     });
+
+    // #region Buy Offer Listeners
+    // ? PERSONAL, YOU RECEIVED AN OFFER
+    this.hubConnection.on('PersonalBuyOffer', (buyOfferNotification: BuyOfferNotificationDTO) => {
+      console.log('Received personal offer:', buyOfferNotification);
+      this.personalBuyOfferNotification.next(buyOfferNotification);
+    });
+
+    // * PUBLIC, SHOULD REFRESH THE BUY OFFERS LIST
+    this.hubConnection.on('RefreshBuyOffers', () => {
+      console.log('Received refresh buy offers signal');
+      this.refreshBuyOffers.next();
+    });
+    // #endregion
 
   }
 }

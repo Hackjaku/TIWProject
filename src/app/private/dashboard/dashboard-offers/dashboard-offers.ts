@@ -6,6 +6,7 @@ import { MatTableModule } from '@angular/material/table';
 import { BuyOfferDTO, PersonalBuyOffersDTO } from '../../../interfaces/BuyOffer';
 import { Subscription } from 'rxjs';
 import { BuyOfferService } from '../../../services/buy-offer-service';
+import { NotificationService } from '../../../services/notification-service';
 
 @Component({
   selector: 'app-dashboard-offers',
@@ -28,7 +29,8 @@ export class DashboardOffers implements OnInit, OnDestroy {
   public offersSub$!: Subscription
 
   constructor(
-    private _buyOfferService: BuyOfferService
+    private _buyOfferService: BuyOfferService,
+    private _notificationService: NotificationService
   ) { };
 
   ngOnInit(): void {
@@ -39,6 +41,25 @@ export class DashboardOffers implements OnInit, OnDestroy {
       },
       error: (err) => {
         console.error('Error fetching offers:', err);
+        this.loading = false; // Set loading to false even if there's an error
+      }
+    });
+
+    this._notificationService.refreshBuyOffers$.subscribe(() => {
+      console.log('Refreshing buy offers due to notification');
+      this.refreshOffers();
+    });
+  }
+
+  refreshOffers() {
+    this.loading = true; // Set loading to true while fetching new data
+    this._buyOfferService.getPersonalBuyOffers().subscribe({
+      next: (offers: PersonalBuyOffersDTO) => {
+        this.offers = offers;
+        this.loading = false; // Set loading to false once data is fetched
+      },
+      error: (err) => {
+        console.error('Error refreshing offers:', err);
         this.loading = false; // Set loading to false even if there's an error
       }
     });

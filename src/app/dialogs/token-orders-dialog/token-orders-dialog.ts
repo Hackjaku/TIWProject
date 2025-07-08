@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { SellOfferService } from '../../services/sell-offer-service';
 import { StorageService } from '../../services/storage-service';
 import { BuyOfferService } from '../../services/buy-offer-service';
+import { NotificationService } from '../../services/notification-service';
 
 @Component({
   selector: 'app-token-orders-dialog',
@@ -38,6 +39,7 @@ export class TokenOrdersDialog implements OnInit, OnDestroy {
     private _buyOfferService: BuyOfferService,
     private _dialogref: MatDialogRef<TokenOrdersDialog>,
     private _storageService: StorageService,
+    private _notificationService: NotificationService,
     @Inject(MAT_DIALOG_DATA) public data: { nft: NftDTO }
   ) { }
 
@@ -55,10 +57,29 @@ export class TokenOrdersDialog implements OnInit, OnDestroy {
 
     this.loggedUserId = this._storageService.getUserId();
 
+    this._notificationService.refreshBuyOffers$.subscribe(() => {
+      console.log('Refreshing buy offers due to notification');
+      this.refreshOrders();
+    });
+
   }
 
   isLoggedIn(): boolean {
     return this.loggedUserId !== null;
+  }
+
+  refreshOrders(): void {
+    this.loading = true;
+    this._nftService.getNftOrders(this.data.nft.Id).subscribe({
+      next: (orders: NftOrdersDTO) => {
+        this.orders = orders;
+        this.loading = false; // Set loading to false once data is fetched
+      },
+      error: (err) => {
+        console.error('Error fetching orders:', err);
+        this.loading = false; // Set loading to false even if there's an error
+      }
+    });
   }
 
   canAcceptSellOrder(order: SellOfferSimpleDTO): boolean {
