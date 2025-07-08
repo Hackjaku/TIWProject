@@ -2,20 +2,37 @@ import { Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth-guard';
 import { Private } from './private/private';
 import { LoginGuard } from './guards/login-guard';
+import { Public } from './public/public';
 
-const loadGallery = () => import('./public/gallery/gallery').then(m => m.Gallery);
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', redirectTo: 'public/login', pathMatch: 'full' },
+
   {
-    path: 'login',
-    canActivate: [LoginGuard],
-    loadComponent: () => import('./public/login/login').then(m => m.Login)
+    path: 'public',
+    component: Public, // ← NEW public layout component
+    children: [
+      {
+        path: 'login',
+        canActivate: [LoginGuard],
+        loadComponent: () => import('./public/login/login').then(m => m.Login)
+      },
+      {
+        path: 'register',
+        loadComponent: () => import('./public/register/register').then(m => m.Register)
+      },
+      {
+        path: 'gallery',
+        loadComponent: () => import('./public/gallery/gallery').then(m => m.Gallery)
+      },
+      {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'login'
+      }
+    ]
   },
-  {
-    path: 'gallery',
-    loadComponent: loadGallery
-  },
+
   {
     path: 'private',
     component: Private,
@@ -35,7 +52,7 @@ export const routes: Routes = [
       },
       {
         path: 'gallery',
-        loadComponent: loadGallery
+        loadComponent: () => import('./public/gallery/gallery').then(m => m.Gallery)
       },
       {
         path: 'nfts',
@@ -52,5 +69,6 @@ export const routes: Routes = [
       }
     ]
   },
-  { path: '**', redirectTo: 'login' }
+
+  { path: '**', redirectTo: 'public/login' }
 ];

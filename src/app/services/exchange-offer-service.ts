@@ -20,4 +20,12 @@ export class ExchangeOfferService {
     return this._backendService.get('ExchangeOffer/all');
   }
 
+  acceptExchangeOffer(offerId: string): Observable<void> {
+    return this._backendService.post(`ExchangeOffer/accept?offerId=${offerId}`, {});
+  }
+
+  cancelExchangeOffer(offerId: string): Observable<void> {
+    return this._backendService.delete(`ExchangeOffer/cancel?offerId=${offerId}`);
+  }
+
 }

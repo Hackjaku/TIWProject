@@ -1,0 +1,18 @@
+<div class="public-layout">
+  <header class="public-header">
+    <h1>My App</h1>
+    <nav>
+      <a routerLink="/public/login" routerLinkActive="active-link">Login</a>
+      <a routerLink="/public/register" routerLinkActive="active-link">Register</a>
+      <a routerLink="/public/gallery" routerLinkActive="active-link">Gallery</a>
+    </nav>
+  </header>
+
+  <main class="public-content">
+    <router-outlet></router-outlet>
+  </main>
+
+  <footer class="public-footer">
+    <p>&copy; 2025 My App. All rights reserved.</p>
+  </footer>
+</div>

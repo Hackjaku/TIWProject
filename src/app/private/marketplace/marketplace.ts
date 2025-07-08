@@ -9,6 +9,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { SellOfferDTO } from '../../interfaces/SellOffer';
 import { ExchangeOfferDTO } from '../../interfaces/ExchangeOffer';
 import { Subscription } from 'rxjs';
+import { ExchangeOrderDialog } from '../dialogs/exchange-order-dialog/exchange-order-dialog';
+import { StorageService } from '../../services/storage-service';
 
 @Component({
   selector: 'app-marketplace',
@@ -23,7 +25,7 @@ import { Subscription } from 'rxjs';
 })
 export class Marketplace implements OnInit, OnDestroy {
 
-  exchangeTableColumns: string[] = ['requesting_currency', 'giving_currency', 'giving_amount', 'requesting_amount', 'actions'];
+  exchangeTableColumns: string[] = ['requesting_amount', 'giving_amount', 'actions'];
   sellTableColumns: string[] = ['token_name', 'currency', 'amount', 'actions'];
 
   sellOrders: SellOfferDTO[] = [];
@@ -32,13 +34,16 @@ export class Marketplace implements OnInit, OnDestroy {
   loadingSellOrders: boolean = true; // Flag to indicate loading state for sell orders
   loadingExchangeOffers: boolean = true; // Flag to indicate loading state for exchange offers
 
+  loggedUserId: number | null = null;
+
   public sellOrdersSub$!: Subscription;
   public exchangeOffersSub$!: Subscription;
 
   constructor(
     private _exchangeOfferService: ExchangeOfferService,
     private _sellOfferService: SellOfferService,
-    private _dialog: MatDialog
+    private _dialog: MatDialog,
+    private _storageService: StorageService
   ) { }
 
   ngOnInit(): void {
@@ -64,21 +69,102 @@ export class Marketplace implements OnInit, OnDestroy {
         this.loadingExchangeOffers = false; // Set loading to false even if there's an error
       }
     });
+
+    this.loggedUserId = this._storageService.getUserId();
   }
 
   openCreateExchangeOfferDialog(): void {
-    // const dialogRef = this.dialog.open(CreateExchangeOfferDialogComponent, {
-    //   width: '600px',
-    //   data: {
-    //     // Pass anything the dialog needs
-    //   }
-    // });
+    const dialogRef = this._dialog.open(ExchangeOrderDialog, {
+      data: {
+        // Pass anything the dialog needs
+      }
+    });
 
-    // dialogRef.afterClosed().subscribe(result => {
-    //   if (result === 'refresh') {
-    //     this.loadExchangeOffers(); // Your method to refresh the exchangeOffers list
-    //   }
-    // });
+    dialogRef.afterClosed().subscribe(result => {
+      // if (result === 'refresh') {
+      //   this.loadExchangeOffers(); // Your method to refresh the exchangeOffers list
+      // }
+    });
+  }
+
+  canAcceptSellOrder(order: SellOfferDTO): boolean {
+    if (order.OwnerId === this.loggedUserId) {
+      return false; // User cannot accept their own order
+    }
+    return true;
+  }
+
+  canCancelSellOrder(order: SellOfferDTO): boolean {
+    if (order.OwnerId === this.loggedUserId) {
+      return true; // User can delete their own order
+    }
+    return false; // User cannot delete others' orders
+  }
+
+  acceptSellOrder(order: SellOfferDTO): void {
+    // Logic to accept the sell order
+    this._sellOfferService.acceptSellOffer(order.Id).subscribe({
+      next: () => {
+        console.log('Sell order accepted successfully');
+        // Optionally, refresh the sell orders list or update the UI
+      },
+      error: (err) => {
+        console.error('Error accepting sell order:', err);
+      }
+    });
+  }
+
+  cancelSellOrder(order: SellOfferDTO): void {
+    // Logic to delete the sell order
+    this._sellOfferService.cancelSellOffer(order.Id).subscribe({
+      next: () => {
+        console.log('Sell order deleted successfully');
+        // Optionally, refresh the sell orders list or update the UI
+      },
+      error: (err) => {
+        console.error('Error deleting sell order:', err);
+      }
+    });
+  }
+
+  canAcceptExchange(offer: ExchangeOfferDTO): boolean {
+    if (offer.UserId === this.loggedUserId) {
+      return false; // User cannot accept their own offer
+    }
+    return true;
+  }
+
+  canCancelExchange(offer: ExchangeOfferDTO): boolean {
+    if (offer.UserId === this.loggedUserId) {
+      return true; // User can delete their own offer
+    }
+    return false; // User cannot delete others' offers
+  }
+
+  acceptExchange(offer: ExchangeOfferDTO): void {
+    // Logic to accept the exchange offer
+    this._exchangeOfferService.acceptExchangeOffer(offer.Id).subscribe({
+      next: () => {
+        console.log('Exchange offer accepted successfully');
+        // Optionally, refresh the exchange offers list or update the UI
+      },
+      error: (err) => {
+        console.error('Error accepting exchange offer:', err);
+      }
+    });
+  }
+
+  cancelExchange(offer: ExchangeOfferDTO): void {
+    // Logic to delete the exchange offer
+    this._exchangeOfferService.cancelExchangeOffer(offer.Id).subscribe({
+      next: () => {
+        console.log('Exchange offer deleted successfully');
+        // Optionally, refresh the exchange offers list or update the UI
+      },
+      error: (err) => {
+        console.error('Error deleting exchange offer:', err);
+      }
+    });
   }
 
   ngOnDestroy(): void {
