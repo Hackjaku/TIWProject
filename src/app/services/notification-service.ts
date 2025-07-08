@@ -6,6 +6,7 @@ import { StorageService } from './storage-service';
 import { BuyOfferNotificationDTO, SellOfferNotificationDTO, WalletNotificationDTO } from '../interfaces/Notification';
 import { ExchangeOfferNotificationDTO } from '../interfaces/Notification';
 import { TokenNotificationDTO } from '../interfaces/Notification';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({
   providedIn: 'root'
@@ -43,7 +44,8 @@ export class NotificationService {
 
   constructor(
     private _backendService: BackendService,
-    private _storageService: StorageService
+    private _storageService: StorageService,
+    private _matSnackBar: MatSnackBar
   ) {
     this.hubConnection = new signalR.HubConnectionBuilder()
       .withUrl(_backendService.getNotificationUrl(), {
@@ -65,6 +67,9 @@ export class NotificationService {
     this.hubConnection.on('PersonalBuyOffer', (buyOfferNotification: BuyOfferNotificationDTO) => {
       console.log('Received personal offer:', buyOfferNotification);
       this.personalBuyOfferNotification.next(buyOfferNotification);
+      this.showSnackbar(`You received a buy offer for ${buyOfferNotification.tokenName}
+        at ${buyOfferNotification.amount} ${buyOfferNotification.currencySymbol}`
+      );
     });
 
     // * PUBLIC, SHOULD REFRESH THE BUY OFFERS LIST
@@ -85,6 +90,10 @@ export class NotificationService {
     this.hubConnection.on('PersonalExchangeOffer', (exchangeOfferNotification: ExchangeOfferNotificationDTO) => {
       console.log('Received personal exchange offer:', exchangeOfferNotification);
       this.personalExchangeOfferNotification.next(exchangeOfferNotification);
+      this.showSnackbar(`Your exchange offer of
+        ${exchangeOfferNotification.givingAmount} ${exchangeOfferNotification.givingCurrencySymbol} for
+        ${exchangeOfferNotification.requestingAmount} ${exchangeOfferNotification.requestingCurrencySymbol} has been accepted`
+      );
     });
 
     this.hubConnection.on('RefreshExchangeOffers', () => {
@@ -102,6 +111,7 @@ export class NotificationService {
     this.hubConnection.on('PersonalTokenNotification', (tokenNotification: TokenNotificationDTO) => {
       console.log('Received personal token notification:', tokenNotification);
       this.personalTokenNotification.next(tokenNotification);
+      this.showSnackbar(`You received a new token: ${tokenNotification.name}`);
     });
     // #endregion
 
@@ -109,6 +119,7 @@ export class NotificationService {
     this.hubConnection.on('PersonalSellOffer', (sellOfferNotification: SellOfferNotificationDTO) => {
       console.log('Received personal sell offer:', sellOfferNotification);
       this.personalSellOfferNotification.next(sellOfferNotification);
+      this.showSnackbar(`Your sell offer for ${sellOfferNotification.tokenName} has been accepted for ${sellOfferNotification.amount} ${sellOfferNotification.currencySymbol}`);
     });
 
     this.hubConnection.on('RefreshSellOffers', () => {
@@ -119,9 +130,22 @@ export class NotificationService {
 
     // #region Wallet Listeners
     this.hubConnection.on('PersonalWallet', (walletNotification: WalletNotificationDTO) => {
-      console.log('Received personal wallet notification:', walletNotification);
       this.personalWalletNotification.next(walletNotification);
+      const username: string | null = this._storageService.getUsername();
+      if (username !== walletNotification.username) {
+        this.showSnackbar(`You received ${walletNotification.amount} ${walletNotification.currencySymbol} from ${walletNotification.username}`);
+      }
+
     });
     // #endregion
+  }
+
+  showSnackbar(message: string): void {
+    this._matSnackBar.open(message, 'Close', {
+      duration: 8000,
+      verticalPosition: 'top',
+      horizontalPosition: 'right',
+      panelClass: ['notification-snackbar']
+    });
   }
 }

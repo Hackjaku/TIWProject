@@ -1,6 +1,6 @@
 export interface BuyOfferNotificationDTO {
   tokenName: string;
-  amout: number;
+  amount: number;
   currencySymbol: string;
   notificationType:BuyOfferNotificationType
 }
