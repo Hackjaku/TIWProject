@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 import { BackendService } from './backend-service';
 import { StorageService } from './storage-service';
 import { BuyOfferNotificationDTO } from '../interfaces/Notification';
+import { ExchangeOfferNotificationDTO } from '../interfaces/ExchangeOffer';
 
 @Injectable({
   providedIn: 'root'
@@ -14,13 +15,17 @@ export class NotificationService {
 
   private personalBuyOfferNotification = new Subject<BuyOfferNotificationDTO>();
   private refreshBuyOffers = new Subject<void>();
-
   personalBuyOfferNotification$ = this.personalBuyOfferNotification.asObservable();
   refreshBuyOffers$ = this.refreshBuyOffers.asObservable();
 
   private refreshCurrencies = new Subject<void>();
-
   refreshCurrencies$ = this.refreshCurrencies.asObservable();
+
+  private refreshExchangeOffers = new Subject<void>();
+  private personalExchangeOfferNotification = new Subject<ExchangeOfferNotificationDTO>();
+  refreshExchangeOffers$ = this.refreshExchangeOffers.asObservable();
+  personalExchangeOfferNotification$ = this.personalExchangeOfferNotification.asObservable();
+
 
 
   private currencyTransfer = new Subject<string>();
@@ -85,6 +90,18 @@ export class NotificationService {
     this.hubConnection.on('RefreshCurrencies', () => {
       console.log('Received refresh currencies signal');
       this.refreshCurrencies.next();
+    });
+    // #endregion
+
+    // #region Exchange Offer Listeners
+    this.hubConnection.on('PersonalExchangeOffer', (exchangeOfferNotification: ExchangeOfferNotificationDTO) => {
+      console.log('Received personal exchange offer:', exchangeOfferNotification);
+      this.personalExchangeOfferNotification.next(exchangeOfferNotification);
+    });
+
+    this.hubConnection.on('RefreshExchangeOffers', () => {
+      console.log('Received refresh exchange offers signal');
+      this.refreshExchangeOffers.next();
     });
     // #endregion
 

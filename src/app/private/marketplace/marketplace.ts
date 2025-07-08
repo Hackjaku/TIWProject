@@ -11,6 +11,7 @@ import { ExchangeOfferDTO } from '../../interfaces/ExchangeOffer';
 import { Subscription } from 'rxjs';
 import { ExchangeOrderDialog } from '../../dialogs/exchange-order-dialog/exchange-order-dialog';
 import { StorageService } from '../../services/storage-service';
+import { NotificationService } from '../../services/notification-service';
 
 @Component({
   selector: 'app-marketplace',
@@ -43,7 +44,8 @@ export class Marketplace implements OnInit, OnDestroy {
     private _exchangeOfferService: ExchangeOfferService,
     private _sellOfferService: SellOfferService,
     private _dialog: MatDialog,
-    private _storageService: StorageService
+    private _storageService: StorageService,
+    private _notificationService: NotificationService
   ) { }
 
   ngOnInit(): void {
@@ -71,6 +73,29 @@ export class Marketplace implements OnInit, OnDestroy {
     });
 
     this.loggedUserId = this._storageService.getUserId();
+
+    this._notificationService.refreshExchangeOffers$.subscribe(() => {
+      console.log('Refreshing exchange offers due to notification');
+      this.refreshExchangeOffers();
+    });
+  }
+
+  refreshExchangeOffers(): void {
+    this.loadingExchangeOffers = true; // Set loading to true while fetching data
+    // close previous subscription if exists
+    if (this.exchangeOffersSub$) {
+      this.exchangeOffersSub$.unsubscribe();
+    }
+    this.exchangeOffersSub$ = this._exchangeOfferService.getAllExchangeOffers().subscribe({
+      next: (exchangeOffers: ExchangeOfferDTO[]) => {
+        this.exchangeOffers = exchangeOffers;
+        this.loadingExchangeOffers = false; // Set loading to false once data is fetched
+      },
+      error: (err) => {
+        console.error('Error fetching exchange offers:', err);
+        this.loadingExchangeOffers = false; // Set loading to false even if there's an error
+      }
+    });
   }
 
   openCreateExchangeOfferDialog(): void {
