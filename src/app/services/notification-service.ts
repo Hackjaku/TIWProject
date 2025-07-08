@@ -18,6 +18,9 @@ export class NotificationService {
   personalBuyOfferNotification$ = this.personalBuyOfferNotification.asObservable();
   refreshBuyOffers$ = this.refreshBuyOffers.asObservable();
 
+  private refreshCurrencies = new Subject<void>();
+
+  refreshCurrencies$ = this.refreshCurrencies.asObservable();
 
 
   private currencyTransfer = new Subject<string>();
@@ -75,6 +78,13 @@ export class NotificationService {
     this.hubConnection.on('RefreshBuyOffers', () => {
       console.log('Received refresh buy offers signal');
       this.refreshBuyOffers.next();
+    });
+    // #endregion
+
+    // #region Currency Listeners
+    this.hubConnection.on('RefreshCurrencies', () => {
+      console.log('Received refresh currencies signal');
+      this.refreshCurrencies.next();
     });
     // #endregion
 

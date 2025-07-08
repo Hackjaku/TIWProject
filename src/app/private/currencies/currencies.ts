@@ -10,6 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { CurrencyActions } from './currency-actions/currency-actions';
 import { NewCurrencyDialog } from '../../dialogs/new-currency-dialog/new-currency-dialog';
+import { NotificationService } from '../../services/notification-service';
 
 
 @Component({
@@ -32,7 +33,8 @@ export class Currencies implements OnInit, OnDestroy {
   constructor(
     private _currencyService: CurrencyService,
     private _dialog: MatDialog,
-    private _storageService: StorageService
+    private _storageService: StorageService,
+    private _notificationService: NotificationService
   ) { }
 
   ngOnInit(): void {
@@ -49,7 +51,32 @@ export class Currencies implements OnInit, OnDestroy {
         this.loading = false; // Set loading to false even if there's an error
       }
     });
+
+    this._notificationService.refreshCurrencies$.subscribe(() => {
+      console.log('Refreshing currencies due to notification');
+      this.refreshCurrencies();
+    });
+
   }
+
+  refreshCurrencies(): void {
+    this.loading = true; // Set loading to true while fetching data
+    // close previous subscription if exists
+    if (this.currencySub$) {
+      this.currencySub$.unsubscribe();
+    }
+    this.currencySub$ = this._currencyService.getAllCyrrencies().subscribe({
+      next: (currencies: CurrencyDetailsDTO[]) => {
+        this.currencies = currencies;
+        this.loading = false; // Set loading to false once data is fetched
+      },
+      error: (err) => {
+        console.error('Error fetching currencies:', err);
+        this.loading = false; // Set loading to false even if there's an error
+      }
+    });
+  }
+
 
   ngOnDestroy(): void {
     if (this.currencySub$) {
