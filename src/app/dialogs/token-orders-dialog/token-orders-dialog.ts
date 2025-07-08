@@ -88,10 +88,7 @@ export class TokenOrdersDialog implements OnInit, OnDestroy {
   }
 
   canAcceptSellOrder(order: SellOfferSimpleDTO): boolean {
-    if (this.data.nft.OwnerId === this.loggedUserId) {
-      return false; // User cannot accept their own order
-    }
-    return true;
+    return this.data.nft.OwnerId !== this.loggedUserId;
   }
 
   acceptSellOrder(order: SellOfferSimpleDTO): void {
@@ -108,10 +105,8 @@ export class TokenOrdersDialog implements OnInit, OnDestroy {
   }
 
   canCancelSellOrder(order: SellOfferSimpleDTO): boolean {
-    if (order.UserId === this.loggedUserId) {
-      return true; // User can cancel their own order
-    }
-    return false; // User cannot cancel someone else's order
+    // Either you're the NFT owner or you placed the sell order
+    return this.data.nft.OwnerId === this.loggedUserId || order.UserId === this.loggedUserId;
   }
 
   cancelSellOrder(order: SellOfferSimpleDTO): void {
@@ -128,12 +123,7 @@ export class TokenOrdersDialog implements OnInit, OnDestroy {
   }
 
   canAcceptBuyOrder(): boolean {
-    if (this.data.nft.OwnerId === this.loggedUserId) {
-      console.log('User can accept buy orders as they are the owner of the NFT');
-      return true; // User can accept buy orders if they are the owner of the NFT
-    }
-    console.log('User cannot accept buy orders as they are not the owner of the NFT');
-    return false;
+    return this.data.nft.OwnerId === this.loggedUserId;
   }
 
   acceptBuyOrder(order: SellOfferSimpleDTO): void {
@@ -163,11 +153,7 @@ export class TokenOrdersDialog implements OnInit, OnDestroy {
   }
 
   canCancelBuyOrder(order: SellOfferSimpleDTO): boolean {
-    if (order.UserId === this.loggedUserId) {
-      console.log('user can cancel order as it is its own');
-      return true;
-    }
-    return false;
+    return order.UserId === this.loggedUserId;
   }
 
   cancelBuyOrder(order: SellOfferSimpleDTO): void {

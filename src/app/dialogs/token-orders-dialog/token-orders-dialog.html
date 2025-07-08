@@ -1,4 +1,7 @@
 <div class="container">
+
+  <h2 class="title">Orders for {{ data.nft.Name }}</h2>
+
   <div class="loading" *ngIf="loading">
     Loading...
   </div>
@@ -26,11 +29,14 @@
             <th mat-header-cell *matHeaderCellDef class="actions-column"> Actions </th>
             <td mat-cell *matCellDef="let order" class="actions-column">
               <div class="action-buttons" *ngIf="isLoggedIn()">
+                <!-- Accept button: only if user is NOT the NFT owner -->
                 <button mat-icon-button color="primary" (click)="acceptSellOrder(order)" matTooltip="Accept"
                   *ngIf="canAcceptSellOrder(order)">
                   <mat-icon class="accept-offer">check_circle</mat-icon>
                 </button>
-                <button mat-icon-button color="primary" (click)="cancelSellOrder(order)" matTooltip="Accept"
+
+                <!-- Cancel button: if user is NFT owner or order owner -->
+                <button mat-icon-button color="primary" (click)="cancelSellOrder(order)" matTooltip="Cancel"
                   *ngIf="canCancelSellOrder(order)">
                   <mat-icon class="accept-offer">delete</mat-icon>
                 </button>
@@ -63,15 +69,20 @@
             <th mat-header-cell *matHeaderCellDef class="actions-column"> Actions </th>
             <td mat-cell *matCellDef="let order" class="actions-column">
               <div class="action-buttons" *ngIf="isLoggedIn()">
+                <!-- Accept button: only if user is NFT owner -->
                 <button mat-icon-button color="primary" (click)="acceptBuyOrder(order)" matTooltip="Accept"
                   *ngIf="canAcceptBuyOrder()">
                   <mat-icon class="accept-offer">check_circle</mat-icon>
                 </button>
-                <button mat-icon-button color="primary" (click)="rejectBuyOrder(order)" matTooltip="Accept"
+
+                <!-- Reject button: only if user is NFT owner -->
+                <button mat-icon-button color="primary" (click)="rejectBuyOrder(order)" matTooltip="Reject"
                   *ngIf="canAcceptBuyOrder()">
                   <mat-icon class="accept-offer">cancel</mat-icon>
                 </button>
-                <button mat-icon-button color="primary" (click)="cancelBuyOrder(order)" matTooltip="Accept"
+
+                <!-- Cancel button: if user placed the buy order -->
+                <button mat-icon-button color="primary" (click)="cancelBuyOrder(order)" matTooltip="Cancel"
                   *ngIf="canCancelBuyOrder(order)">
                   <mat-icon class="accept-offer">delete</mat-icon>
                 </button>

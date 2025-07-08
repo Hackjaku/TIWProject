@@ -1,4 +1,5 @@
 <div class="container">
+  <h2 class="title">Add Currency</h2>
   <form [formGroup]="form" class="send-form">
 
     <mat-form-field appearance="fill" class="full-width">
@@ -13,7 +14,7 @@
     </mat-form-field>
 
     <button mat-raised-button color="primary" [disabled]="form.invalid" (click)="confirmAdd()" class="confirm-button">
-      Confirm Add
+      Confirm
     </button>
   </form>
 </div>

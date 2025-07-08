@@ -1,5 +1,6 @@
 
 <div class="container">
+  <h2 class="title">Create New NFT</h2>
   <form [formGroup]="form" class="send-form">
 
     <mat-form-field appearance="fill" class="full-width">
@@ -21,7 +22,7 @@
     </mat-form-field>
 
     <button mat-raised-button color="primary" [disabled]="form.invalid" (click)="confirmCreate()" class="confirm-button">
-      Confirm Send
+      Confirm
     </button>
   </form>
 </div>
