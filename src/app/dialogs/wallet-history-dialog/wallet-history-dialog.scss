@@ -2,4 +2,50 @@
   display: flex;
   justify-content: center;
   flex: 1;
+  height: 250px;
+  padding: 1rem;
+}
+
+.divider {
+  border: none;
+  height: 1px;
+  background: #ddd;
+  margin: 1rem 0;
+}
+
+.table-container {
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 0 1rem;
+
+  .full-width-table {
+    width: 100%;
+    min-width: 500px;
+
+    th.mat-header-cell {
+      background: white;
+      z-index: 2;
+    }
+  }
+}
+
+
+.sent-arrow {
+  color: red;
+  vertical-align: middle;
+  margin-right: 0.5rem;
+}
+
+.received-arrow {
+  color: green;
+  vertical-align: middle;
+  margin-right: 0.5rem;
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 1000px;
+  padding: 20px;
 }

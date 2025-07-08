@@ -77,8 +77,9 @@ export class Wallets implements OnInit, OnDestroy {
   openHistory(wallet: WalletDTO): void {
     // Implement wallet history functionality here
     this._dialog.open(WalletHistoryDialog, {
-      width: '600px',
-      height: '400px',
+      width: '1100px',
+      maxWidth: '1100px',
+      height: '80vh',
       data: { wallet: wallet } // Pass the wallet ID to the dialog
     });
   }

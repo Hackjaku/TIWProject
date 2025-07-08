@@ -1,17 +1,26 @@
 import { AfterViewInit, Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { DailyTransactionsDTO } from '../../interfaces/Transaction';
+import { DailyTransactionsDTO, SimpleTransactionHistoryDTO } from '../../interfaces/Transaction';
 import { TransactionService } from '../../services/transaction-service';
 import { Subscription } from 'rxjs';
 import { Chart, registerables } from 'chart.js';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { WalletDTO } from '../../interfaces/Wallet';
 import { ViewChild, ElementRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MatTableModule } from '@angular/material/table';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 Chart.register(...registerables);
 
 @Component({
   selector: 'app-wallet-history-dialog',
-  imports: [],
+  imports: [
+    CommonModule,
+    MatTableModule,
+    MatIconModule,
+    MatButtonModule
+  ],
   templateUrl: './wallet-history-dialog.html',
   styleUrl: './wallet-history-dialog.scss'
 })
@@ -22,14 +31,20 @@ export class WalletHistoryDialog implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('balanceCanvas', { static: false }) balanceCanvas!: ElementRef<HTMLCanvasElement>;
 
   chartData: DailyTransactionsDTO[] = [];
+  walletHistory: SimpleTransactionHistoryDTO[] = [];
 
   chartLabels: string[] = [];
   chartValues: number[] = [];
 
   transactionHistorySub$!: Subscription;
+  walletHistorySub$!: Subscription;
 
   chartReady = false; // flag to avoid early rendering
   dataReady = false;
+
+  loadingHistory = true;
+
+  displayedColumns: string[] = ['Date', 'Wallet', 'Amount'];
 
   constructor(
     private _transactionService: TransactionService,
@@ -50,6 +65,19 @@ export class WalletHistoryDialog implements OnInit, OnDestroy, AfterViewInit {
           console.error('Error fetching wallet history:', error);
         }
       });
+
+    this.walletHistorySub$ = this._transactionService.getWallet(this.data.wallet.WalletId)
+      .subscribe({
+        next: (data: SimpleTransactionHistoryDTO[]) => {
+          this.walletHistory = data;
+          this.loadingHistory = false;
+        },
+        error: (error: any) => {
+          console.error('Error fetching wallet history:', error);
+          this.loadingHistory = false;
+        }
+      });
+
   }
 
   ngAfterViewInit(): void {

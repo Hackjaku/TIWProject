@@ -11,3 +11,10 @@ export interface DailyTransactionsDTO {
   ReceivedTransactions: SimpleTransactionDTO[];
   WalletBalance: number;
 }
+
+export interface SimpleTransactionHistoryDTO {
+  WalletId: string;
+  Amount: number;
+  Timestamp: Date;
+  IsSent: boolean;
+}
