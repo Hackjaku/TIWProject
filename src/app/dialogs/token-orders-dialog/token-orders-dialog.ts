@@ -26,7 +26,7 @@ export class TokenOrdersDialog implements OnInit, OnDestroy {
 
   displayedColumns: string[] = ['currency_symbol', 'amount', 'actions'];
 
-  orders!: NftOrdersDTO; // Replace with actual type
+  orders!: NftOrdersDTO;
   loading: boolean = true; // Flag to indicate loading state
 
   loggedUserId: number | null = null;

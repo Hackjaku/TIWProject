@@ -32,7 +32,6 @@ export class AddCurrencyDialog implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    // Initialization logic can go here
     this.form = this._fb.group({
       Amount: [0, Validators.required],
     });
@@ -65,7 +64,6 @@ export class AddCurrencyDialog implements OnInit {
     this._currencyService.generateCurrency(addCurrencyData).subscribe({
       next: (response) => {
         console.log('Currency added successfully:', response);
-        // Optionally, you can close the dialog or reset the form here
         this._dialogRef.close(response);
       },
       error: (err) => {

@@ -114,7 +114,6 @@ export class ExchangeOrderDialog implements OnInit, OnDestroy {
       },
       error: (err) => {
         console.error('Error creating exchange offer:', err);
-        // Optionally, you can show an error message to the user here
       }
     });
 

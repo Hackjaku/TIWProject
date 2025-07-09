@@ -57,7 +57,6 @@ export class NewCurrencyDialog implements OnInit {
     this._currencyService.createCurrency(newCurrency).subscribe({
       next: (currency) => {
         console.log('New currency created:', currency);
-        // Optionally, you can close the dialog or reset the form here
       },
       error: (err) => {
         console.error('Error creating currency:', err);

@@ -69,7 +69,6 @@ export class DashboardOffers implements OnInit, OnDestroy {
     this._buyOfferService.acceptBuyOffer(offer.Id).subscribe({
       next: () => {
         console.log('Offer accepted successfully');
-        // Optionally, refresh the offers list or update the UI
       },
       error: (err) => {
         console.error('Error accepting offer:', err);
@@ -81,7 +80,6 @@ export class DashboardOffers implements OnInit, OnDestroy {
     this._buyOfferService.rejectBuyOffer(offer.Id).subscribe({
       next: () => {
         console.log('Offer rejected successfully');
-        // Optionally, refresh the offers list or update the UI
       },
       error: (err) => {
         console.error('Error rejecting offer:', err);
@@ -93,7 +91,6 @@ export class DashboardOffers implements OnInit, OnDestroy {
     this._buyOfferService.cancelBuyOffer(offer.Id).subscribe({
       next: () => {
         console.log('Order cancelled successfully');
-        // Optionally, refresh the offers list or update the UI
       },
       error: (err) => {
         console.error('Error cancelling order:', err);

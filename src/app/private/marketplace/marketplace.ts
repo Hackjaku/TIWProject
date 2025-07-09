@@ -154,7 +154,6 @@ export class Marketplace implements OnInit, OnDestroy {
     this._sellOfferService.acceptSellOffer(order.Id).subscribe({
       next: () => {
         console.log('Sell order accepted successfully');
-        // Optionally, refresh the sell orders list or update the UI
       },
       error: (err) => {
         console.error('Error accepting sell order:', err);
@@ -167,7 +166,6 @@ export class Marketplace implements OnInit, OnDestroy {
     this._sellOfferService.cancelSellOffer(order.Id).subscribe({
       next: () => {
         console.log('Sell order deleted successfully');
-        // Optionally, refresh the sell orders list or update the UI
       },
       error: (err) => {
         console.error('Error deleting sell order:', err);
@@ -194,7 +192,6 @@ export class Marketplace implements OnInit, OnDestroy {
     this._exchangeOfferService.acceptExchangeOffer(offer.Id).subscribe({
       next: () => {
         console.log('Exchange offer accepted successfully');
-        // Optionally, refresh the exchange offers list or update the UI
       },
       error: (err) => {
         console.error('Error accepting exchange offer:', err);
@@ -207,7 +204,6 @@ export class Marketplace implements OnInit, OnDestroy {
     this._exchangeOfferService.cancelExchangeOffer(offer.Id).subscribe({
       next: () => {
         console.log('Exchange offer deleted successfully');
-        // Optionally, refresh the exchange offers list or update the UI
       },
       error: (err) => {
         console.error('Error deleting exchange offer:', err);

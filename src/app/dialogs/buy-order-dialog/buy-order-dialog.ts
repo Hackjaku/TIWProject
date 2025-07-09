@@ -37,7 +37,7 @@ export class BuyOrderDialog implements OnInit {
     private _walletService: WalletService,
     private _buyOfferService: BuyOfferService,
     private _fb: FormBuilder,
-    @Inject(MAT_DIALOG_DATA) public data: { nft: NftDTO } // Replace 'any' with the actual type of your NFT
+    @Inject(MAT_DIALOG_DATA) public data: { nft: NftDTO }
   ) { }
 
   ngOnInit(): void {

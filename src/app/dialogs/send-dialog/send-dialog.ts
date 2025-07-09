@@ -37,7 +37,7 @@ export class SendDialog implements OnInit {
   constructor(
     private fb: FormBuilder,
     private _walletService: WalletService,
-    private _userService: UserService, // Assuming you have a UserService to fetch users
+    private _userService: UserService,
     @Inject(MAT_DIALOG_DATA) public data: { wallet: WalletDTO },
     private dialogRef: MatDialogRef<SendDialog>
   ) { }
@@ -84,7 +84,7 @@ export class SendDialog implements OnInit {
       CurrencyId: this.data.wallet.CurrencyId,
       WalletId: this.data.wallet.WalletId,
       Amount: this.form.value.Amount,
-      OwnerId: this.selectedUser.Id // Assuming Username is the user ID
+      OwnerId: this.selectedUser.Id
     }
 
     this._walletService.transferCurrency(transfer).subscribe({

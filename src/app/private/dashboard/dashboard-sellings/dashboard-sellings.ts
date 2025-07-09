@@ -70,7 +70,6 @@ export class DashboardSellings implements OnInit, OnDestroy {
     this._sellOrderService.cancelSellOffer(order.Id).subscribe({
       next: () => {
         console.log('Order cancelled successfully');
-        // Optionally, refresh the sell orders list or update the UI
       },
       error: (err) => {
         console.error('Error cancelling order:', err);

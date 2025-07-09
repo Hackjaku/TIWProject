@@ -49,7 +49,7 @@ export class WalletHistoryDialog implements OnInit, OnDestroy, AfterViewInit {
   constructor(
     private _transactionService: TransactionService,
     private _dialogRef: MatDialogRef<WalletHistoryDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: { wallet: WalletDTO } // Assuming you pass walletId in data
+    @Inject(MAT_DIALOG_DATA) public data: { wallet: WalletDTO }
   ) { }
 
   ngOnInit(): void {
@@ -128,7 +128,7 @@ export class WalletHistoryDialog implements OnInit, OnDestroy, AfterViewInit {
       },
       options: {
         responsive: true,
-        maintainAspectRatio: false, // Optional: lets you control size better
+        maintainAspectRatio: false,
         plugins: {
           legend: { display: true },
           tooltip: { mode: 'index', intersect: false }
