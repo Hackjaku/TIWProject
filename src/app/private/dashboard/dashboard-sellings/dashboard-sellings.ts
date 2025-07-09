@@ -23,7 +23,7 @@ export class DashboardSellings implements OnInit, OnDestroy {
 
   displayedColumns: string[] = ['nft_name', 'currency_symbol', 'amount', 'actions'];
 
-  sellOrders: SellOfferDTO[] = []; // Replace with actual type
+  sellOrders: SellOfferDTO[] = [];
   loading: boolean = true; // Flag to indicate loading state
 
   public sellOrdersSub$!: Subscription;
@@ -35,7 +35,7 @@ export class DashboardSellings implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.sellOrdersSub$ = this._sellOrderService.getPersonalSellOffers().subscribe({
-      next: (orders: SellOfferDTO[]) => { // Replace with actual type
+      next: (orders: SellOfferDTO[]) => {
         this.sellOrders = orders;
         this.loading = false; // Set loading to false once data is fetched
       },

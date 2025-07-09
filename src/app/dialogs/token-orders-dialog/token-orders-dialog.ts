@@ -166,7 +166,6 @@ export class TokenOrdersDialog implements OnInit, OnDestroy {
 
 
   ngOnDestroy(): void {
-    // Cleanup if necessary
     if (this.ordersSub$) {
       this.ordersSub$.unsubscribe();
     }

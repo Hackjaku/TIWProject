@@ -46,7 +46,6 @@ export class NftActions implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        // Handle the result from the modal if needed
         console.log('Transfer action completed:', result);
       }
     });
@@ -61,7 +60,6 @@ export class NftActions implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        // Handle the result from the modal if needed
         console.log('Sell order action completed:', result);
       }
     });

@@ -49,7 +49,6 @@ export class Marketplace implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    // Initialization logic here
     this.sellOrdersSub$ = this._sellOfferService.getAllSellOffers().subscribe({
       next: (sellOffers: SellOfferDTO[]) => {
         this.sellOrders = sellOffers;
@@ -124,14 +123,10 @@ export class Marketplace implements OnInit, OnDestroy {
   openCreateExchangeOfferDialog(): void {
     const dialogRef = this._dialog.open(ExchangeOrderDialog, {
       data: {
-        // Pass anything the dialog needs
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      // if (result === 'refresh') {
-      //   this.loadExchangeOffers(); // Your method to refresh the exchangeOffers list
-      // }
     });
   }
 
@@ -212,7 +207,6 @@ export class Marketplace implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // Cleanup logic here
     if (this.sellOrdersSub$) {
       this.sellOrdersSub$.unsubscribe();
     }

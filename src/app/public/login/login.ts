@@ -54,7 +54,6 @@ export class Login {
       },
       error: (error) => {
         console.error('Login failed:', error);
-        // Handle login failure, e.g., show an error message
       }
     })
   }

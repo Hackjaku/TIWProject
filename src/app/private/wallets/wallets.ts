@@ -61,7 +61,6 @@ export class Wallets implements OnInit, OnDestroy {
   }
 
   send(wallet: WalletDTO): void {
-    // Implement send functionality here
     const dialogRef = this._dialog.open(SendDialog, {
       width: '400px',
       height: '300px',
@@ -75,7 +74,6 @@ export class Wallets implements OnInit, OnDestroy {
   }
 
   openHistory(wallet: WalletDTO): void {
-    // Implement wallet history functionality here
     this._dialog.open(WalletHistoryDialog, {
       width: '1100px',
       maxWidth: '1100px',

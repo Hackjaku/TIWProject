@@ -1,5 +1,5 @@
 .nft-card {
-  width: 300px;
+  width: 300px; // consistent width
   max-width: 300px;
   border-radius: 12px;
   overflow: hidden;
@@ -7,7 +7,7 @@
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   display: flex;
   flex-direction: column;
-  height: 400px; // 👈 force consistent height
+  height: 400px; // consistent height
 
   .preview {
     height: 200px; // consistent media box

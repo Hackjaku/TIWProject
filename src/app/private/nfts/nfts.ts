@@ -31,7 +31,7 @@ export class Nfts implements OnInit, OnDestroy {
   nfts: NftDTO[] = [];
   loading: boolean = true; // Flag to indicate loading state
 
-  currentUserId: number = 0; // This should be set to the current user's ID, possibly from a user service
+  currentUserId: number = 0;
 
   public nftSub$!: Subscription;
 

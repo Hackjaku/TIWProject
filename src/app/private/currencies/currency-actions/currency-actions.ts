@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -22,7 +22,7 @@ import { AddCurrencyDialog } from '../../../dialogs/add-currency-dialog/add-curr
   templateUrl: './currency-actions.html',
   styleUrl: './currency-actions.scss'
 })
-export class CurrencyActions implements OnInit {
+export class CurrencyActions {
 
   @Input() userId!: number;
   @Input() currency!: Currency;
@@ -30,10 +30,6 @@ export class CurrencyActions implements OnInit {
   constructor(
     private _dialog: MatDialog
   ) { }
-
-  ngOnInit(): void {
-    // Check if the user owns the currency
-  }
 
   addCurrency(): void {
     const dialogRef = this._dialog.open(AddCurrencyDialog, {

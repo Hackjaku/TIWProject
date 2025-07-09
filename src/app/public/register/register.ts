@@ -85,7 +85,6 @@ export class Register implements OnInit {
       },
       error: (error) => {
         console.error('Registration failed:', error);
-        // Handle registration error
       }
     });
   }
